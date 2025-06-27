@@ -1,0 +1,658 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-27 15:20+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\apply\models.py:41
+msgid "uz"
+msgstr ""
+
+#: .\apply\models.py:42
+msgid "ru"
+msgstr ""
+
+#: .\apply\models.py:196 .\templates\apply\index.html:153
+#: .\templates\apply\index1.html:124
+msgid "Male"
+msgstr "Erkak"
+
+#: .\apply\models.py:197 .\templates\apply\index.html:154
+#: .\templates\apply\index1.html:125
+msgid "Female"
+msgstr "Ayol"
+
+#: .\apply\models.py:200
+msgid "External learning"
+msgstr "Sirtqi ta'lim"
+
+#: .\apply\models.py:201
+msgid "Full-time"
+msgstr "Kunduzgi ta'lim"
+
+#: .\apply\models.py:202 .\apply\views.py:154
+msgid "Distance learning"
+msgstr "Masofaviy ta'lim"
+
+#: .\apply\models.py:205 .\conf\settings.py:86
+msgid "Uzbek"
+msgstr "O'zbek tili"
+
+#: .\apply\models.py:206 .\conf\settings.py:85
+msgid "Russian"
+msgstr "Rus tili"
+
+#: .\apply\models.py:210
+msgid "New"
+msgstr "Yangi"
+
+#: .\apply\models.py:211
+msgid "Under review"
+msgstr "Ko'rib chiqilmoqda"
+
+#: .\apply\models.py:212
+msgid "Confirmed"
+msgstr "Tasdiqlangan"
+
+#: .\apply\models.py:213
+msgid "Rejected"
+msgstr "Rad etilgan"
+
+#: .\apply\views.py:40
+msgid "Error loading page: {}"
+msgstr "Sahifani yuklashda xatolik: {}"
+
+#: .\apply\views.py:51
+msgid "This field is required."
+msgstr "Ushbu qator to'ldirilishi shart."
+
+#: .\apply\views.py:53
+msgid "Photo upload is required."
+msgstr "Surat yuklash talab qilinadi."
+
+#: .\apply\views.py:55
+msgid "Passport copy is required."
+msgstr "Pasport nusxasi talab qilinadi."
+
+#: .\apply\views.py:57
+msgid "Diploma is required."
+msgstr "Diplom talab qilinadi."
+
+#: .\apply\views.py:100
+msgid "Selected data not found."
+msgstr "Tanlangan maʼlumotlar topilmadi."
+
+#: .\apply\views.py:103
+msgid "Internal server error: {}"
+msgstr "Serverdagi ichki xatolik: {}"
+
+#: .\apply\views.py:115
+#, fuzzy
+#| msgid "Application submitted!"
+msgid "Application number is required"
+msgstr "Ariza topshirildi!"
+
+#: .\apply\views.py:129
+#, fuzzy
+#| msgid "Application not found!"
+msgid "Application not found with this number"
+msgstr "Ariza topiolmadi"
+
+#: .\apply\views.py:135
+#, fuzzy
+#| msgid "An error occurred."
+msgid "An error occurred: {}"
+msgstr "Xatolik yuz berdi."
+
+#: .\apply\views.py:150
+msgid "Full-time education"
+msgstr "Kunduzgi ta'lim"
+
+#: .\apply\views.py:152
+msgid "Externally education"
+msgstr "Sirtqi ta'lim"
+
+#: .\apply\views.py:170
+msgid "This passport number is already registered."
+msgstr "Ushbu pasport raqami allaqachon ro'yxatdan o'tgan."
+
+#: .\apply\views.py:173
+msgid "This JSHIR (PINFL) is already registered."
+msgstr "Bu JSHIR (PINFL) allaqachon ro'yxatdan o'tgan."
+
+#: .\apply\views.py:181
+msgid "Invalid request."
+msgstr "So‘rov noto‘g‘ri."
+
+#: .\apply\views.py:182
+msgid "Only POST requests are allowed."
+msgstr "Faqat POST so'rovlariga ruxsat beriladi."
+
+#: .\conf\settings.py:84
+msgid "English"
+msgstr "Ingliz tili"
+
+#: .\templates\apply\base.html:8
+msgid "Application Form"
+msgstr "Ariza shakli"
+
+#: .\templates\apply\base.html:42
+msgid "Copyright"
+msgstr "Mualliflik huquqi"
+
+#: .\templates\apply\base.html:42
+msgid "All rights reserved"
+msgstr "Barcha huquqlar himoyalangan"
+
+#: .\templates\apply\base.html:43
+msgid "Developed by:"
+msgstr "Tomonidan ishlab chiqilgan"
+
+#: .\templates\apply\base.html:62 .\templates\apply\base.html:94
+msgid "Loading..."
+msgstr "Yuklanmoqda..."
+
+#: .\templates\apply\base.html:63 .\templates\apply\base.html:97
+msgid "Choose a direction first."
+msgstr "Avval yo`nalishni tanlang."
+
+#: .\templates\apply\base.html:66
+msgid "First select the level"
+msgstr "Avval darajani tanlang"
+
+#: .\templates\apply\base.html:82
+msgid "Error loading training courses:"
+msgstr "O`quv kurslarini yuklashda xatolik:"
+
+#: .\templates\apply\base.html:83 .\templates\apply\base.html:118
+msgid "An error occurred."
+msgstr "Xatolik yuz berdi."
+
+#: .\templates\apply\base.html:113
+msgid "No form of education available"
+msgstr "Ta`lim shakli mavjud emas"
+
+#: .\templates\apply\base.html:117
+msgid "Error loading educational forms:"
+msgstr "Ta`lim shakllarini yuklashda xatolik yuz berdi:"
+
+#: .\templates\apply\base.html:174
+msgid "Last selected file:"
+msgstr "Oxirgi tanlangan fayl:"
+
+#: .\templates\apply\base.html:174
+msgid "For security reasons, you must reselect the file."
+msgstr "Xavfsizlik nuqtai nazaridan faylni qayta tanlashingiz kerak."
+
+#: .\templates\apply\base.html:195
+msgid "The data was successfully reloaded."
+msgstr "Maʼlumotlar muvaffaqiyatli qayta yuklandi."
+
+#: .\templates\apply\base.html:259
+msgid "Error checking uniqueness:"
+msgstr "Yagonalikni tekshirishda xatolik yuz berdi:"
+
+#: .\templates\apply\base.html:260
+msgid "An error occurred while connecting to the server."
+msgstr "Serverga ulanishda xatolik yuz berdi."
+
+#: .\templates\apply\base.html:375
+msgid "Application not found!"
+msgstr "Ariza topiolmadi"
+
+#: .\templates\apply\base.html:379
+#, fuzzy
+#| msgid "Your application number:"
+msgid "Your application number to Diplomat University:"
+msgstr "Ariza raqamingiz:"
+
+#: .\templates\apply\base.html:433
+msgid "Please confirm the application."
+msgstr "Iltimos, arizani tasdiqlang."
+
+#: .\templates\apply\base.html:438
+msgid "Sending..."
+msgstr "Yuborilmoqda..."
+
+#: .\templates\apply\base.html:455
+msgid "There was an error submitting the application. Please check the fields."
+msgstr "Arizani yuborishda xatolik yuz berdi. Maydonlarni tekshiring."
+
+#: .\templates\apply\base.html:461
+msgid "An unexpected error occurred while submitting the application."
+msgstr "Arizani yuborishda kutilmagan xatolik yuz berdi."
+
+#: .\templates\apply\base.html:486
+#, fuzzy
+#| msgid "Your application number"
+msgid "Application number"
+msgstr "Ariza raqamingiz"
+
+#: .\templates\apply\base.html:505
+msgid "Status"
+msgstr "Holati"
+
+#: .\templates\apply\base.html:513
+msgid "Server error. Please try again later."
+msgstr "Server xatosi. Keyinroq qayta urinib ko‘ring."
+
+#: .\templates\apply\base.html:520 .\templates\apply\index.html:45
+#: .\templates\apply\index1.html:96
+msgid "Check"
+msgstr "Tekshirish"
+
+#: .\templates\apply\index.html:14 .\templates\apply\index1.html:14
+msgid "Application form"
+msgstr "Ariza shakli"
+
+#: .\templates\apply\index.html:23
+msgid "Admissions are open at DIPLOMAT UNIVERSITY!"
+msgstr "DIPLOMAT UNIVERSITY da qabul davom etmoqda!"
+
+#: .\templates\apply\index.html:24
+msgid "Diplomat University"
+msgstr ""
+
+#: .\templates\apply\index.html:24
+msgid ""
+"is an intellectual hub that prepares competitive professionals with modern "
+"knowledge and skills for the international arena!"
+msgstr "bu xalqaro maydonda raqobatbardosh, zamonaviy bilim va ko‘nikmalarga ega kadrlar tayyorlovchi aql markazi!"
+
+#: .\templates\apply\index.html:27
+msgid ""
+"A team consisting of extraordinary and autonomous ambassadors, international "
+"political scientists, and foreign professors"
+msgstr "Favqulodda va muxtor elchilar, xalqaro siyosatshunoslar, xorijiy professor-o‘qituvchilardan tashkil topgan jamoa"
+
+#: .\templates\apply\index.html:28
+msgid "Educational programs meeting international standards"
+msgstr "Xalqaro standartlarga mos ta’lim dasturlari"
+
+#: .\templates\apply\index.html:29
+msgid "Creative and free academic environment"
+msgstr "Erkin ijodiy muhit"
+
+#: .\templates\apply\index.html:30
+msgid "Career development center"
+msgstr "Karyera markazi"
+
+#: .\templates\apply\index.html:31
+msgid "Diplomas recognized both in Uzbekistan and abroad"
+msgstr "O‘zbekistonda hamda xorijda tan olinadigan diplom"
+
+#: .\templates\apply\index.html:34
+msgid "12 Bachelor's and 4 Master's degree"
+msgstr "12 ta Bakalavr va 4 ta Magistratura"
+
+#: .\templates\apply\index.html:34
+msgid "programs are waiting for you"
+msgstr "ta’lim yo‘nalishlari sizlarni kutmokda"
+
+#: .\templates\apply\index.html:43 .\templates\apply\index1.html:94
+msgid ""
+"You can check your application status here. Type your application number "
+"below:"
+msgstr ""
+"Siz arizangiz holatini bu yerdan tekshirishingiz mumkin. Ariza raqamingizni "
+"bu yerga kiriting:"
+
+#: .\templates\apply\index.html:44 .\templates\apply\index1.html:95
+msgid "Your application number"
+msgstr "Ariza raqamingiz"
+
+#: .\templates\apply\index.html:60 .\templates\apply\index1.html:25
+msgid "Step 1"
+msgstr "1-qadam"
+
+#: .\templates\apply\index.html:61 .\templates\apply\index1.html:26
+msgid "Filling out the form"
+msgstr "Arizani to'ldirish"
+
+#: .\templates\apply\index.html:70 .\templates\apply\index1.html:35
+msgid "Step 2"
+msgstr "2-qadam"
+
+#: .\templates\apply\index.html:71 .\templates\apply\index1.html:36
+msgid "Uploading documents"
+msgstr "Hujjatlarni yuklash"
+
+#: .\templates\apply\index.html:80 .\templates\apply\index1.html:45
+msgid "Step 3"
+msgstr "3-qadam"
+
+#: .\templates\apply\index.html:81 .\templates\apply\index1.html:46
+msgid "Verifying and submitting"
+msgstr "Tekshirish va yuborish"
+
+#: .\templates\apply\index.html:90 .\templates\apply\index1.html:55
+msgid "Step 4"
+msgstr "4-qadam"
+
+#: .\templates\apply\index.html:91 .\templates\apply\index1.html:56
+msgid "Test"
+msgstr "Test sinovlari"
+
+#: .\templates\apply\index.html:103 .\templates\apply\index1.html:68
+msgid "Degree"
+msgstr "Daraja"
+
+#: .\templates\apply\index.html:113 .\templates\apply\index1.html:78
+msgid "Direction of education"
+msgstr "Ta'lim yo'nalishi"
+
+#: .\templates\apply\index.html:121 .\templates\apply\index1.html:86
+msgid "Form of study"
+msgstr "Ta'lim shakli"
+
+#: .\templates\apply\index.html:133 .\templates\apply\index1.html:104
+msgid "Personal particulars:"
+msgstr "Shaxsiy ma’lumotlar:"
+
+#: .\templates\apply\index.html:136 .\templates\apply\index.html:137
+#: .\templates\apply\index1.html:107 .\templates\apply\index1.html:108
+msgid "Surname"
+msgstr "Familiyasi"
+
+#: .\templates\apply\index.html:140 .\templates\apply\index.html:141
+#: .\templates\apply\index1.html:111 .\templates\apply\index1.html:112
+msgid "First name"
+msgstr "Ismi"
+
+#: .\templates\apply\index.html:146 .\templates\apply\index.html:147
+#: .\templates\apply\index1.html:117 .\templates\apply\index1.html:118
+msgid "Middle name"
+msgstr "Sharifi"
+
+#: .\templates\apply\index.html:150 .\templates\apply\index1.html:121
+msgid "Gender"
+msgstr "Jinsi"
+
+#: .\templates\apply\index.html:152 .\templates\apply\index1.html:123
+msgid "Select gender"
+msgstr "Tanlang"
+
+#: .\templates\apply\index.html:160 .\templates\apply\index1.html:131
+msgid "Phone number"
+msgstr "Telefon raqami"
+
+#: .\templates\apply\index.html:163 .\templates\apply\index1.html:134
+msgid "Enter the number in +998901234567 format"
+msgstr "Raqamni +998901234567 formatida kiriting"
+
+#: .\templates\apply\index.html:166 .\templates\apply\index1.html:137
+msgid "Phone number (Telegram)"
+msgstr "Telefon raqami (Telegram)"
+
+#: .\templates\apply\index.html:168 .\templates\apply\index1.html:139
+msgid "Telegram username or phone number"
+msgstr "Telegram username yoki telefon raqami"
+
+#: .\templates\apply\index.html:171 .\templates\apply\index1.html:142
+msgid "Passport details:"
+msgstr "Pasport ma’lumotlari:"
+
+#: .\templates\apply\index.html:174 .\templates\apply\index1.html:145
+msgid "Passport No.:"
+msgstr "Pasport seriyasi va raqami"
+
+#: .\templates\apply\index.html:178 .\templates\apply\index1.html:149
+msgid "Enter the passport series in AA1234567 format"
+msgstr "Pasport seriyasini AA1234567 formatida kiriting"
+
+#: .\templates\apply\index.html:182 .\templates\apply\index1.html:153
+msgid "JSHIR (PINFL)"
+msgstr ""
+
+#: .\templates\apply\index.html:186 .\templates\apply\index1.html:157
+msgid "14-digit number"
+msgstr "14 xonali raqam"
+
+#: .\templates\apply\index.html:190 .\templates\apply\index1.html:161
+msgid "JSHIR must consist of 14 digits"
+msgstr "JSHIR 14 ta raqamdan iborat boʻlishi kerak"
+
+#: .\templates\apply\index.html:196 .\templates\apply\index.html:200
+#: .\templates\apply\index1.html:167 .\templates\apply\index1.html:171
+msgid "Address of permanent residence"
+msgstr "Doimiy yashash manzili"
+
+#: .\templates\apply\index.html:203 .\templates\apply\index1.html:174
+msgid "Region"
+msgstr "Mintaqa"
+
+#: .\templates\apply\index.html:213 .\templates\apply\index.html:302
+#: .\templates\apply\index1.html:184 .\templates\apply\index1.html:273
+msgid "Next"
+msgstr "Keyingisi"
+
+#: .\templates\apply\index.html:217 .\templates\apply\index1.html:188
+msgid "I am attaching the following documents to this application:"
+msgstr "Quyidagi hujjatlarni mazkur arizaga ilova qilyapman:"
+
+#: .\templates\apply\index.html:218 .\templates\apply\index1.html:189
+msgid "Fields marked with * are required."
+msgstr "* bilan belgilangan maydonlarni kiritish shart."
+
+#: .\templates\apply\index.html:223 .\templates\apply\index1.html:194
+msgid "Photo (3x4)"
+msgstr "Surat (3x4)"
+
+#: .\templates\apply\index.html:228 .\templates\apply\index.html:243
+#: .\templates\apply\index.html:259 .\templates\apply\index.html:274
+#: .\templates\apply\index.html:294 .\templates\apply\index1.html:199
+#: .\templates\apply\index1.html:214 .\templates\apply\index1.html:230
+#: .\templates\apply\index1.html:245 .\templates\apply\index1.html:265
+msgid "Requirements"
+msgstr "Talablar"
+
+#: .\templates\apply\index.html:229 .\templates\apply\index1.html:200
+msgid "3x4, on a white background – jpeg, png format"
+msgstr "3x4, oq fonda – jpeg formati, jpg, png"
+
+#: .\templates\apply\index.html:230 .\templates\apply\index.html:245
+#: .\templates\apply\index.html:261 .\templates\apply\index.html:276
+#: .\templates\apply\index.html:296 .\templates\apply\index1.html:201
+#: .\templates\apply\index1.html:216 .\templates\apply\index1.html:232
+#: .\templates\apply\index1.html:247 .\templates\apply\index1.html:267
+msgid "The maximum file size is up to 3 MB"
+msgstr "Maksimal fayl hajmi-3 MB gacha"
+
+#: .\templates\apply\index.html:238 .\templates\apply\index1.html:209
+msgid "Passport copy"
+msgstr "Pasport nusxasi"
+
+#: .\templates\apply\index.html:244 .\templates\apply\index1.html:215
+msgid "Passport copy including the residence registration – jpeg/pdf format."
+msgstr "Pasport nusxasi ro‘yxatdan o‘tgan manzili bilan - jpeg/pdf formati."
+
+#: .\templates\apply\index.html:253 .\templates\apply\index1.html:224
+msgid "Diploma"
+msgstr "Shahodatnoma yoki diplom"
+
+#: .\templates\apply\index.html:260 .\templates\apply\index1.html:231
+msgid ""
+"The copy of the document of secondary or secondary specialized education (or "
+"a certificate confirming graduation in the current year)"
+msgstr ""
+"O‘rta yoki o‘rta-maxsus ma’lumot haqidagi hujjat nusxasi (yoki o‘qishni bu "
+"yil bitirayotganligini tasdiqlovchi ma’lumotnoma)"
+
+#: .\templates\apply\index.html:269 .\templates\apply\index1.html:240
+msgid "Additional documents"
+msgstr "Qo‘shimcha hujjatlar"
+
+#: .\templates\apply\index.html:275 .\templates\apply\index1.html:246
+msgid "Certificates (IELTS, various competitions etc.)"
+msgstr "Sertifikat (IELTS, turli olimpiadalar va h.k.)"
+
+#: .\templates\apply\index.html:284 .\templates\apply\index1.html:255
+msgid ""
+"Applicants 'documents with scores of at least 56.7 and above are accepted "
+"from the entrance exams."
+msgstr ""
+"Kirish imtihonlarida 56,7 va undan yuqori ball to‘plagan abituriyentlarning "
+"hujjatlari qabul qilinadi."
+
+#: .\templates\apply\index.html:285 .\templates\apply\index1.html:256
+msgid ""
+"Only in the 2022-2023 academic year and 2023-2024 academic year will the "
+"results of exams passed to state Higher Education Institutions be recognized."
+msgstr ""
+"Faqat 2022-2023 o‘quv yili va 2023-2024 o‘quv yilida davlat oliy ta’lim "
+"muassasalariga topshirilgan imtihonlar natijalari tan olinadi."
+
+#: .\templates\apply\index.html:286 .\templates\apply\index.html:288
+#: .\templates\apply\index1.html:257 .\templates\apply\index1.html:259
+msgid "Your score"
+msgstr "Sizning ballingiz"
+
+#: .\templates\apply\index.html:289 .\templates\apply\index1.html:260
+msgid "DTM account"
+msgstr "DTM hisobi"
+
+#: .\templates\apply\index.html:295 .\templates\apply\index1.html:266
+msgid ""
+"Applicant permission (QR code required to be loaded to be clearly visible)"
+msgstr ""
+"Abituriyent ruxsatnomasi (QR kodi aniq ko‘rinadigan qilib yuklash talab "
+"etiladi)"
+
+#: .\templates\apply\index.html:306 .\templates\apply\index1.html:277
+msgid "Verify and Submit"
+msgstr "Tasdiqlang va yuboring"
+
+#: .\templates\apply\index.html:308 .\templates\apply\index1.html:279
+msgid ""
+"I take responsibility for the accuracy of the data in my application and "
+"confirm the information signed by me."
+msgstr ""
+"Arizamdagi ma’lumotlar haqqoniyligining mas’uliyatini o‘z zimmamga olaman va "
+"imzolayotgan ma’lumotimni tasdiqlayman."
+
+#: .\templates\apply\index.html:309 .\templates\apply\index1.html:280
+msgid ""
+"I will enroll in the DIPLOMAT UNIVERSITY (hereinafter referred to as the "
+"University) on the direction/course specified in this application."
+msgstr ""
+"Mazkur arizada belgilangan yo‘nalish/kursga muvofiq, DIPLOMAT UNIVERSITY "
+"(keyingi o‘rinlarda-Universitet)ga o‘qishga topshiraman."
+
+#: .\templates\apply\index.html:310 .\templates\apply\index1.html:281
+msgid "Informed about the cost of studying at the University."
+msgstr "Universitetda o‘qish narxi qiymati haqida ma’lumotga egaman."
+
+#: .\templates\apply\index.html:311 .\templates\apply\index1.html:282
+msgid "I undertake to comply with the internal rules of the University."
+msgstr ""
+"Universitet ichki-tartib qoidalariga amal qilish majburiyatini o‘z zimmamga "
+"olaman."
+
+#: .\templates\apply\index.html:312 .\templates\apply\index1.html:283
+msgid ""
+"I undertake to respect the administration and the scholars of the University."
+msgstr ""
+"Universitet professor-o‘qituvchilari va administratsiyasiga hurmat bilan "
+"munosabat ko‘rsatish majburiyatini o‘z zimmamga olaman."
+
+#: .\templates\apply\index.html:313 .\templates\apply\index1.html:284
+msgid ""
+"I agree that violation of the rules of the University or disrespect for the "
+"administration, as well as for the scholars of the University may cause "
+"rejection in the execution of my application or termination of the training "
+"contract."
+msgstr ""
+"Universitet qoidalarini buzish yoki professor-o‘qituvchilari, "
+"administratsiyaga behurmatlik arizam ijrosining rad etilishiga yoki o‘quv "
+"shartnomasining to‘xtatilishiga olib kelishiga roziman."
+
+#: .\templates\apply\index.html:314 .\templates\apply\index1.html:285
+msgid ""
+"I will take the opportunity to register only once in the University system."
+msgstr ""
+"Universitet tizimida ro‘yxatdan o‘tish imkoniyatidan bir marta  foydalanaman."
+
+#: .\templates\apply\index.html:315 .\templates\apply\index1.html:286
+msgid ""
+"I agree and take note that the provision of incorrect information in the "
+"application or a falsified document will be the reason for the rejection of "
+"my application."
+msgstr ""
+"Arizamda yolg‘on ma’lumot taqdim etsam yoki hujjatlarni qalbakilashtirsam, "
+"bu arizamning rad etilishiga olib kelishiga roziman."
+
+#: .\templates\apply\index.html:316 .\templates\apply\index1.html:287
+msgid ""
+"I agree and confirm the possibility of my expulsion from the number of "
+"University students if during the verification of my documents false data / "
+"falsified information is revealed."
+msgstr ""
+"Hujjatlarimda yolg‘on ma’lumot taqdim etsam yoki qalbakilashtirsam, bu "
+"Universitet talabalar safidan chetlashtirilishimga olib kelishiga roziman va "
+"tasdiqlayman."
+
+#: .\templates\apply\index.html:317 .\templates\apply\index1.html:288
+msgid ""
+"In the above-mentioned case, I confirm and agree that the University will "
+"not refund the contract amount paid by me in full, on account of material "
+"compensation."
+msgstr ""
+"Yuqorida qayd etilgan holatlarda, Universitetga o‘qish uchun to‘langan "
+"kontrakt pulining to‘liq miqdori moddiy  kompensatsiya sifatida qaytarib "
+"berilmasligiga roziligimni tasdiqlayman."
+
+#: .\templates\apply\index.html:319 .\templates\apply\index1.html:290
+msgid "Confirm"
+msgstr "Tasdiqlayman"
+
+#: .\templates\apply\index.html:325 .\templates\apply\index1.html:296
+msgid "Submit"
+msgstr "Yuborish"
+
+#: .\templates\apply\index.html:331 .\templates\apply\index1.html:302
+msgid "Your application has been successfully submitted!"
+msgstr "Sizning arizangiz muvaffaqiyatli topshirildi!"
+
+#: .\templates\apply\index.html:332 .\templates\apply\index1.html:303
+msgid "Your application number:"
+msgstr "Ariza raqamingiz:"
+
+#: .\templates\apply\index.html:333 .\templates\apply\index1.html:304
+msgid ""
+"Please keep this number in mind to check your application status in the "
+"future."
+msgstr ""
+"Kelajakda arizangiz holatini tekshirish uchun ushbu raqamni yodda saqlang."
+
+#: .\templates\apply\index.html:336 .\templates\apply\index1.html:307
+msgid "Save application number"
+msgstr "Ariza raqamini saqlang"
+
+#: .\templates\apply\index.html:339 .\templates\apply\index1.html:310
+msgid "We will contact you soon."
+msgstr "Tez orada siz bilan bog'lanamiz."
+
+#: .\templates\apply\index.html:352 .\templates\apply\index1.html:323
+msgid "What is JSHIR (PINFL)?"
+msgstr "JSHIR (PINFL) nima?"
+
+#: .\templates\apply\index.html:357 .\templates\apply\index1.html:328
+msgid "Sample JSHIR"
+msgstr "JSHIR namunasi"
+
+#~ msgid "Please confirm the terms."
+#~ msgstr "Iltimos, shartlarni tasdiqlang."

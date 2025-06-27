@@ -1,0 +1,334 @@
+{% extends "apply/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="main-header">
+    <div class="my-container">
+        <img src="https://apply.diplomat.university/_nuxt/img/headerLogo2.0a6ac49.svg" alt="Diplomat University"
+             class="logo">
+    </div>
+</div>
+<div class="hero-section">
+    <div class="my-container">
+        <h1>{% trans "Application form" %}</h1>
+    </div>
+</div>
+<div class="page-content-wrapper">
+    <main class="container">
+        <div class="form-container">
+            <div class="form-steps">
+                <div id="step-indicator-1" class="step completed">
+                    <div class="step-content">
+                        <div class="step-circle"><i class="fas fa-check"></i></div>
+                        <div class="step-description">
+                            <div class="step-label">{% trans "Step 1" %}</div>
+                            <div class="step-title">{% trans "Filling out the form" %}</div>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div id="step-indicator-2" class="step">
+                    <div class="step-content">
+                        <div class="step-circle">2</div>
+                        <div class="step-description">
+                            <div class="step-label">{% trans "Step 2" %}</div>
+                            <div class="step-title">{% trans "Uploading documents" %}</div>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div id="step-indicator-3" class="step">
+                    <div class="step-content">
+                        <div class="step-circle">3</div>
+                        <div class="step-description">
+                            <div class="step-label">{% trans "Step 3" %}</div>
+                            <div class="step-title">{% trans "Verifying and submitting" %}</div>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div id="step-indicator-4" class="step">
+                    <div class="step-content">
+                        <div class="step-circle"><i class="fas fa-flag-checkered"></i></div>
+                        <div class="step-description">
+                            <div class="step-label">{% trans "Step 4" %}</div>
+                            <div class="step-title">{% trans "Test" %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-and-status">
+
+                <form id="applicationForm" class="application-form" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="degree">{% trans "Degree" %}<span class="text-danger">*</span></label>
+                                <select id="degree" name="degree" required>
+                                    <option value="">---------</option>
+                                    {% for i in degrees %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="education-direction">{% trans "Direction of education" %}<span
+                                        class="text-danger">*</span></label>
+                                <select id="education-direction" name="education_direction" disabled required>
+                                    <option value="">---------</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="study-form">{% trans "Form of study" %}<span class="text-danger">*</span></label>
+                                <select id="study-form" name="study_form" disabled required>
+                                    <option value="">---------</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="padding-top:40px">
+                            <div class="status-check-container">
+                                <p>{% trans "You can check your application status here. Type your application number below:" %}</p>
+                                <input type="text" placeholder="{% trans 'Your application number' %}">
+                                <button class="check-btn">{% trans "Check" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="height:2px; background:black">
+
+                    <div id="step-1">
+
+                        <h3>{% trans "Personal particulars:" %}</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="surname">{% trans "Surname" %}<span class="text-danger">*</span></label>
+                                <input type="text" id="surname" name="surname" placeholder="{% trans 'Surname' %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">{% trans "First name" %}<span class="text-danger">*</span></label>
+                                <input type="text" id="first_name" name="first_name" placeholder="{% trans 'First name' %}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="middle_name">{% trans "Middle name" %}</label>
+                                <input type="text" id="middle_name" name="middle_name" placeholder="{% trans 'Middle name' %}">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">{% trans "Gender" %}<span class="text-danger">*</span></label>
+                                <select id="gender" name="gender" required>
+                                    <option value="" disabled selected>{% trans "Select gender" %}</option>
+                                    <option value="male">{% trans "Male" %}</option>
+                                    <option value="female">{% trans "Female" %}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">{% trans "Phone number" %}<span class="text-danger">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="+998901234567"
+                                       pattern="\+998[0-9]{9}"
+                                       title="{% trans 'Enter the number in +998901234567 format' %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telegram">{% trans "Phone number (Telegram)" %}</label>
+                                <input type="text" id="telegram" name="telegram"
+                                       placeholder="{% trans 'Telegram username or phone number' %}">
+                            </div>
+                        </div>
+                        <h3>{% trans "Passport details:" %}</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="passport">{% trans "Passport No.:" %}<span class="text-danger">*</span></label>
+                                <input type="text" id="passport" name="passport" placeholder="AA1234567"
+                                       pattern="[A-Z]{2}[0-9]{7}"
+                                       maxlength="9"
+                                       title="{% trans 'Enter the passport series in AA1234567 format' %}" required>
+                                <div class="invalid-feedback" id="passport-error"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="jshir">{% trans "JSHIR (PINFL)" %}<span class="text-danger">*</span>
+                                    <i class="fas fa-info-circle info-icon" data-bs-toggle="modal"
+                                       data-bs-target="#jshirModal"></i>
+                                </label>
+                                <input type="tel" id="jshir" name="jshir" placeholder="{% trans '14-digit number' %}"
+                                       inputmode="numeric"
+                                       pattern="[0-9]{14}"
+                                       maxlength="14"
+                                       title="{% trans 'JSHIR must consist of 14 digits' %}" required>
+                                <div class="invalid-feedback" id="jshir-error"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="address_of_permanent_residence">{% trans "Address of permanent residence" %}<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="address_of_permanent_residence"
+                                       name="address_of_permanent_residence"
+                                       placeholder="{% trans 'Address of permanent residence' %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="region">{% trans "Region" %}<span class="text-danger">*</span></label>
+                                <select id="region" name="region" required>
+                                    <option value="" disabled selected></option>
+                                    {% for region in regions %}
+                                    <option value="{{ region.id }}">{{ region.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="next-btn" onclick="goToStep(2)">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                    <div id="step-2" style="display: none;">
+                        <h3>{% trans "I am attaching the following documents to this application:" %}</h3>
+                        <p><span class="text-danger">*</span> {% trans "Fields marked with * are required." %}</p>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="photo-upload">{% trans "Photo (3x4)" %}<span class="text-danger">*</span></label>
+                                    <input type="file" id="photo-upload" name="photo" class="form-control" required
+                                           accept="image/*">
+                                </div>
+                                <div class="col-md-6">
+                                    <label><b>{% trans "Requirements" %}</b></label>
+                                    <label>{% trans "3x4, on a white background – jpeg, png format" %}</label>
+                                    <label>{% trans "The maximum file size is up to 3 MB" %}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="height:2px; color:black">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="passport-copy-upload">{% trans "Passport copy" %}<span class="text-danger">*</span></label>
+                                    <input type="file" id="passport-copy-upload" name="passport_copy"
+                                           class="form-control" required accept=".pdf,.jpg,.jpeg,.png">
+                                </div>
+                                <div class="col-md-6">
+                                    <label><b>{% trans "Requirements" %}</b></label>
+                                    <label>{% trans "Passport copy including the residence registration – jpeg/pdf format." %}</label>
+                                    <label>{% trans "The maximum file size is up to 3 MB" %}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="height:2px; color:black">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="diploma-upload">{% trans "Diploma" %}<span
+                                            class="text-danger">*</span></label>
+                                    <input type="file" id="diploma-upload" name="diploma" class="form-control" required
+                                           accept=".pdf,.jpg,.jpeg,.png">
+                                </div>
+                                <div class="col-md-6">
+                                    <label><b>{% trans "Requirements" %}</b></label>
+                                    <label>{% trans "The copy of the document of secondary or secondary specialized education (or a certificate confirming graduation in the current year)" %}</label>
+                                    <label>{% trans "The maximum file size is up to 3 MB" %}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="height:2px; color:black">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="additional-docs-upload">{% trans "Additional documents" %}</label>
+                                    <input type="file" id="additional-docs-upload" name="additional_documents"
+                                           class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                                </div>
+                                <div class="col-md-6">
+                                    <label><b>{% trans "Requirements" %}</b></label>
+                                    <label>{% trans "Certificates (IELTS, various competitions etc.)" %}</label>
+                                    <label>{% trans "The maximum file size is up to 3 MB" %}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="height:2px; color:black">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>{% trans "Applicants 'documents with scores of at least 56.7 and above are accepted from the entrance exams." %}</label>
+                                    <label>{% trans "Only in the 2022-2023 academic year and 2023-2024 academic year will the results of exams passed to state Higher Education Institutions be recognized." %}</label>
+                                    <label for="dtm-ball-input">{% trans "Your score" %}</label>
+                                    <input type="number" step="any" id="dtm-ball-input" name="dtm_ball"
+                                           class="form-control" placeholder="{% trans 'Your score' %}">
+                                    <label for="dtm-file-upload">{% trans "DTM account" %}</label>
+                                    <input type="file" id="dtm-file-upload" name="dtm_file" class="form-control"
+                                           accept=".pdf,.jpg,.jpeg,.png">
+                                </div>
+                                <div class="col-md-6">
+                                    <label><b>{% trans "Requirements" %}</b></label>
+                                    <label>{% trans "Applicant permission (QR code required to be loaded to be clearly visible)" %}</label>
+                                    <label>{% trans "The maximum file size is up to 3 MB" %}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="next-btn" onclick="goToStep(3)">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                    <div id="step-3" style="display: none;">
+                        <h3>{% trans "Verify and Submit" %}</h3>
+                        <p id="confirmation-name-paragraph"></p>
+                        <p>{% trans "I take responsibility for the accuracy of the data in my application and confirm the information signed by me." %}</p>
+                        <p>{% trans "I will enroll in the DIPLOMAT UNIVERSITY (hereinafter referred to as the University) on the direction/course specified in this application." %}</p>
+                        <p>{% trans "Informed about the cost of studying at the University." %}</p>
+                        <p>{% trans "I undertake to comply with the internal rules of the University." %}</p>
+                        <p>{% trans "I undertake to respect the administration and the scholars of the University." %}</p>
+                        <p>{% trans "I agree that violation of the rules of the University or disrespect for the administration, as well as for the scholars of the University may cause rejection in the execution of my application or termination of the training contract." %}</p>
+                        <p>{% trans "I will take the opportunity to register only once in the University system." %}</p>
+                        <p>{% trans "I agree and take note that the provision of incorrect information in the application or a falsified document will be the reason for the rejection of my application." %}</p>
+                        <p>{% trans "I agree and confirm the possibility of my expulsion from the number of University students if during the verification of my documents false data / falsified information is revealed." %}</p>
+                        <p>{% trans "In the above-mentioned case, I confirm and agree that the University will not refund the contract amount paid by me in full, on account of material compensation." %}</p>
+
+                        <input type="checkbox" id="confirm-checkbox"> <label for="confirm-checkbox">{% trans "Confirm" %}</label>
+
+                        <div id="review-data">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" id="submit-btn" class="submit-btn" disabled>{% trans "Submit" %}</button>
+                        </div>
+                    </div>
+
+                    <div id="step-4" style="display: none; text-align: center;">
+                        <i class="fas fa-check-circle" style="font-size: 80px; color: green; margin-bottom: 20px;"></i>
+                        <h2>{% trans "Your application has been successfully submitted!" %}</h2>
+                        <p>{% trans "Your application number:" %} <strong id="application-number"></strong>.</p>
+                        <p>{% trans "Please keep this number in mind to check your application status in the future." %}</p>
+
+                        <button type="button" id="save-app-number-btn" class="next-btn" style="margin-top: 20px;">
+                            <i class="fas fa-download"></i> {% trans "Save application number" %}
+                        </button>
+
+                        <p style="margin-top: 20px;">{% trans "We will contact you soon." %}</p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal fade" id="jshirModal" tabindex="-1" aria-labelledby="jshirModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="jshirModalLabel">{% trans "What is JSHIR (PINFL)?" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="https://cisc.uz/uz/media/images/470186658_2527042054173012_8502034666669134116_n.jpg"
+                     class="img-fluid" alt="{% trans 'Sample JSHIR' %}">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

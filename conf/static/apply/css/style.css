@@ -1,0 +1,421 @@
+/* Global stillar, shriftlar, o'zgaruvchilar */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --primary-blue: #2d6cb1;
+    --dark-blue: #2c4a8a;
+    --border-color: #ddd;
+    --text-color: #333;
+    --light-text: #666;
+    --green-accent: #27ae60;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.my-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+main.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.page-content-wrapper {
+    position: relative;
+    overflow-x: hidden;
+    flex-grow: 1; /* Bu footer pastga yopishib turishi uchun kerak */
+}
+
+.page-content-wrapper::after {
+    content: "";
+    background-image: url('https://apply.diplomat.university/_nuxt/img/backImage.547f5ae.png');
+    background-position: 100% 0;
+    background-repeat: repeat-y;
+    background-size: 171px;
+    height: 100%;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    width: 171px;
+    z-index: 0;
+}
+
+main.container {
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 10px 0;
+    font-size: 14px;
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+}
+.contact-info i { margin-right: 5px; }
+.contact-info i:last-of-type { margin-left: 15px; }
+.lang-switcher i { margin-left: 5px; font-size: 12px; }
+
+.main-header {
+    background-color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+.logo {
+    height: 130px;
+}
+
+.hero-section {
+    background: linear-gradient(91.01deg, #2d6cb1 40.68%, rgba(45,108,177,.7) 75.34%, rgba(45,108,177,0) 99.45%),url('https://apply.diplomat.university/_nuxt/img/pageHeader2.c19108e.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 90px 0;
+    color: white;
+}
+.hero-section h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+main.container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* ----------------- STEP INDICATOR STYLES START HERE ----------------- */
+
+.form-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.step {
+    display: flex;
+    flex: 1;
+    position: relative;
+    justify-content: center;
+}
+.step-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    color: #ababab;
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: relative;
+}
+.step-description {
+    white-space: nowrap;
+}
+.step-label {
+    font-size: 12px;
+    color: #999;
+}
+.step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+.step-line {
+    position: absolute;
+    top: 17px;
+    left: calc(50% + 25px);
+    right: calc(-50% + 25px);
+    height: 2px;
+    background-color: #e0e0e0; /* Asosiy kulrang chiziq */
+    z-index: 1;
+}
+
+.step-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: var(--primary-blue);
+    transition: width 0.5s ease;
+}
+
+.step:last-child .step-line {
+    display: none;
+}
+
+.step.active .step-circle {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.step.active .step-label,
+.step.active .step-title {
+    color: #333;
+}
+
+.step.completed .step-circle {
+    border-color: #e0e0e0;
+    color: var(--primary-blue);
+}
+
+.step.completed .step-label,
+.step.completed .step-title {
+    color: #333;
+}
+
+.step.completed .step-line::after {
+    width: 100%;
+}
+/* ----------------- STEP INDICATOR STYLES END HERE ----------------- */
+
+
+.form-and-status { gap: 40px; }
+.application-form { flex: 2; }
+.status-check-container { flex: 1; background-color: #eaf0f6; padding: 20px; border-radius: 8px; height: fit-content; }
+.status-check-container p { font-weight: 500; margin-bottom: 15px; }
+.status-check-container input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px; margin-bottom: 15px; }
+.check-btn { width: 100%; padding: 12px; background-color: var(--green-accent); color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background-color 0.3s; }
+.check-btn:hover { background-color: #218c54; }
+.form-group { margin-bottom: 20px; }
+
+/* -- O'ZGARTIRILGAN QISM -- */
+.form-group label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--light-text);
+    margin-bottom: 5px;
+}
+/* -- O'ZGARTIRILGAN QISM TUGADI -- */
+
+.application-form h3 { margin-top: 30px; margin-bottom: 20px; font-size: 18px; font-weight: 500; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+.form-row { display: flex; gap: 20px; }
+.form-row .form-group { flex: 1; }
+input[type="text"], input[type="tel"], select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 16px; background-color: #fff; }
+select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2724%27%20height%3D%2724%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M7%2010l5%205%205-5z%27%20fill%3D%27%23666%27%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 20px; }
+.form-actions { text-align: right; margin-top: 30px; }
+.next-btn, .back-btn, .submit-btn { padding: 12px 30px; border: none; border-radius: 4px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background-color 0.3s; }
+.next-btn, .submit-btn { width:100%; background-color: var(--dark-blue); color: white;}
+.back-btn { background-color: #6c757d; color: white; }
+.next-btn:hover, .submit-btn:hover { background-color: #243b6f; }
+.back-btn:hover { background-color: #5a6268; }
+
+/* Brauzer validatsiyasidan o'tmagan maydonlar uchun stil */
+input:invalid,
+select:invalid {
+  border-color: #e74c3c;
+}
+
+/* -- YANGI QO'SHILGAN QISM -- */
+.info-icon {
+    color: var(--primary-blue);
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 8px;
+    transition: color 0.3s ease;
+}
+.info-icon:hover {
+    color: var(--dark-blue);
+}
+/* -- YANGI QO'SHILGAN QISM TUGADI -- */
+
+
+/* ----------------- FOOTER STILLARI ----------------- */
+.footer {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 25px 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.footer-content a {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-content a:hover {
+    text-decoration: none;
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+    .form-and-status { flex-direction: column; }
+}
+
+@media (max-width: 768px) {
+    .form-row { flex-direction: column; gap: 0; }
+    .page-content-wrapper::after { display: none; }
+    .footer-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+input:invalid,
+select:invalid {
+  border-color: #e74c3c;
+  }
+
+/* Aktiv til tanlash tugmasi uchun stil */
+.lang-select-btn.active {
+    background-color: #2d6cb1; /* var(--primary-blue) */
+    color: white;
+    border-color: #2d6cb1; /* var(--primary-blue) */
+    font-weight: bold;
+}
+
+.submit-btn:disabled,
+    .submit-btn[disabled]{
+        background-color: #9db2bf;
+        cursor: not-allowed;
+        opacity: 0.7;
+        border: 1px solid #9db2bf;
+    }
+
+// Validatsiya xabarlari uchun stillarni dinamik qo'shish
+const style = document.createElement('style');
+style.innerHTML = `
+    .invalid-feedback {
+        width: 100%;
+        margin-top: .25rem;
+        font-size: .875em;
+        color: #dc3545;
+        display: none;
+    }
+    input.is-invalid, select.is-invalid {
+        border-color: #dc3545 !important;
+    }
+
+    /* ==== YANGI STILLAR ==== */
+    .custom-file-upload {
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        display: flex;
+        align-items: center;
+        padding: 0;
+        cursor: pointer;
+    }
+    .custom-file-btn {
+        background-color: #e9ecef;
+        padding: .375rem .75rem;
+        border-right: 1px solid #ced4da;
+        margin: 0;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+    .custom-file-name {
+        padding-left: .75rem;
+        color: #495057;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex-grow: 1;
+    }
+    .custom-file-upload:hover .custom-file-btn {
+        background-color: #d8dee2;
+    }
+`;
+document.head.appendChild(style);
+
+#statusResult {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+#statusText {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.check-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+    .status-pending {
+        background-color: #cce5ff; /* Ko'k */
+        border-left: 4px solid #007bff;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 4px;
+    }
+    .status-review {
+        background-color: #fff3cd; /* Sariq */
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 4px;
+    }
+
+    .status-approved {
+        background-color: #d4edda; /* Yashil */
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 4px;
+    }
+    .status-rejected {
+        background-color: #f8d7da; /* Qizil */
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 4px;
+    }
+    .alert-danger {
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 4px;
+    }

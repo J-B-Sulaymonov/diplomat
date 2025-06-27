@@ -1,0 +1,661 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-27 15:20+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\apply\models.py:41
+msgid "uz"
+msgstr ""
+
+#: .\apply\models.py:42
+msgid "ru"
+msgstr ""
+
+#: .\apply\models.py:196 .\templates\apply\index.html:153
+#: .\templates\apply\index1.html:124
+msgid "Male"
+msgstr "Мужской"
+
+#: .\apply\models.py:197 .\templates\apply\index.html:154
+#: .\templates\apply\index1.html:125
+msgid "Female"
+msgstr "Женский"
+
+#: .\apply\models.py:200
+msgid "External learning"
+msgstr "Заочно"
+
+#: .\apply\models.py:201
+msgid "Full-time"
+msgstr "Очно"
+
+#: .\apply\models.py:202 .\apply\views.py:154
+msgid "Distance learning"
+msgstr "Дистанционное обучение"
+
+#: .\apply\models.py:205 .\conf\settings.py:86
+msgid "Uzbek"
+msgstr "Узбекский"
+
+#: .\apply\models.py:206 .\conf\settings.py:85
+msgid "Russian"
+msgstr "Русский"
+
+#: .\apply\models.py:210
+msgid "New"
+msgstr "Новый"
+
+#: .\apply\models.py:211
+msgid "Under review"
+msgstr "На рассмотрении"
+
+#: .\apply\models.py:212
+msgid "Confirmed"
+msgstr "Подтвержденный"
+
+#: .\apply\models.py:213
+msgid "Rejected"
+msgstr "Отклоненный"
+
+#: .\apply\views.py:40
+msgid "Error loading page: {}"
+msgstr "Ошибка загрузки страницы: {}"
+
+#: .\apply\views.py:51
+msgid "This field is required."
+msgstr "Это поле обязательно к заполнению."
+
+#: .\apply\views.py:53
+msgid "Photo upload is required."
+msgstr "Требуется загрузка фотографий."
+
+#: .\apply\views.py:55
+msgid "Passport copy is required."
+msgstr "Требуется копия паспорта."
+
+#: .\apply\views.py:57
+msgid "Diploma is required."
+msgstr "Диплом обязателен."
+
+#: .\apply\views.py:100
+msgid "Selected data not found."
+msgstr "Выбранные данные не найдены."
+
+#: .\apply\views.py:103
+msgid "Internal server error: {}"
+msgstr "Внутренняя ошибка сервера: {}"
+
+#: .\apply\views.py:115
+#, fuzzy
+#| msgid "Application submitted!"
+msgid "Application number is required"
+msgstr "Заявка отправлена!"
+
+#: .\apply\views.py:129
+#, fuzzy
+#| msgid "Application not found!"
+msgid "Application not found with this number"
+msgstr "Заявление не найдено!"
+
+#: .\apply\views.py:135
+#, fuzzy
+#| msgid "An error occurred."
+msgid "An error occurred: {}"
+msgstr "Произошла ошибка."
+
+#: .\apply\views.py:150
+msgid "Full-time education"
+msgstr "Очная форма обучения"
+
+#: .\apply\views.py:152
+msgid "Externally education"
+msgstr "Внешнее образование"
+
+#: .\apply\views.py:170
+msgid "This passport number is already registered."
+msgstr "Этот номер паспорта уже зарегистрирован."
+
+#: .\apply\views.py:173
+msgid "This JSHIR (PINFL) is already registered."
+msgstr "Этот JSHIR (PINFL) уже зарегистрирован."
+
+#: .\apply\views.py:181
+msgid "Invalid request."
+msgstr "Неверный запрос."
+
+#: .\apply\views.py:182
+msgid "Only POST requests are allowed."
+msgstr "Разрешены только запросы POST."
+
+#: .\conf\settings.py:84
+msgid "English"
+msgstr "Английский"
+
+#: .\templates\apply\base.html:8
+msgid "Application Form"
+msgstr "Заявление"
+
+#: .\templates\apply\base.html:42
+msgid "Copyright"
+msgstr "Авторское право"
+
+#: .\templates\apply\base.html:42
+msgid "All rights reserved"
+msgstr "Все права защищены"
+
+#: .\templates\apply\base.html:43
+msgid "Developed by:"
+msgstr "Разработано:"
+
+#: .\templates\apply\base.html:62 .\templates\apply\base.html:94
+msgid "Loading..."
+msgstr "Загрузка..."
+
+#: .\templates\apply\base.html:63 .\templates\apply\base.html:97
+msgid "Choose a direction first."
+msgstr "Сначала выберите направление."
+
+#: .\templates\apply\base.html:66
+msgid "First select the level"
+msgstr "Сначала выберите уровень"
+
+#: .\templates\apply\base.html:82
+msgid "Error loading training courses:"
+msgstr "Ошибка загрузки учебных курсов:"
+
+#: .\templates\apply\base.html:83 .\templates\apply\base.html:118
+msgid "An error occurred."
+msgstr "Произошла ошибка."
+
+#: .\templates\apply\base.html:113
+msgid "No form of education available"
+msgstr "Форма обучения недоступна"
+
+#: .\templates\apply\base.html:117
+msgid "Error loading educational forms:"
+msgstr "Ошибка загрузки образовательных форм:"
+
+#: .\templates\apply\base.html:174
+msgid "Last selected file:"
+msgstr "Последний выбранный файл:"
+
+#: .\templates\apply\base.html:174
+msgid "For security reasons, you must reselect the file."
+msgstr "В целях безопасности вам необходимо повторно выбрать файл."
+
+#: .\templates\apply\base.html:195
+msgid "The data was successfully reloaded."
+msgstr "Данные успешно перезагружены."
+
+#: .\templates\apply\base.html:259
+msgid "Error checking uniqueness:"
+msgstr "Ошибка проверки уникальности:"
+
+#: .\templates\apply\base.html:260
+msgid "An error occurred while connecting to the server."
+msgstr "Произошла ошибка при подключении к серверу."
+
+#: .\templates\apply\base.html:375
+msgid "Application not found!"
+msgstr "Заявление не найдено!"
+
+#: .\templates\apply\base.html:379
+#, fuzzy
+#| msgid "Your application number:"
+msgid "Your application number to Diplomat University:"
+msgstr "Номер вашей заявки:"
+
+#: .\templates\apply\base.html:433
+msgid "Please confirm the application."
+msgstr "Пожалуйста, подтвердите заявку."
+
+#: .\templates\apply\base.html:438
+msgid "Sending..."
+msgstr "Отправка..."
+
+#: .\templates\apply\base.html:455
+msgid "There was an error submitting the application. Please check the fields."
+msgstr "Произошла ошибка при отправке заявки. Проверьте поля."
+
+#: .\templates\apply\base.html:461
+msgid "An unexpected error occurred while submitting the application."
+msgstr "При подаче заявки произошла непредвиденная ошибка."
+
+#: .\templates\apply\base.html:486
+#, fuzzy
+#| msgid "Your application number"
+msgid "Application number"
+msgstr "Ваш номер заявки"
+
+#: .\templates\apply\base.html:505
+msgid "Status"
+msgstr "Статус"
+
+#: .\templates\apply\base.html:513
+msgid "Server error. Please try again later."
+msgstr ""
+
+#: .\templates\apply\base.html:520 .\templates\apply\index.html:45
+#: .\templates\apply\index1.html:96
+msgid "Check"
+msgstr "ПРОВЕРИТЬ"
+
+#: .\templates\apply\index.html:14 .\templates\apply\index1.html:14
+msgid "Application form"
+msgstr "Заявление"
+
+#: .\templates\apply\index.html:23
+msgid "Admissions are open at DIPLOMAT UNIVERSITY!"
+msgstr "В DIPLOMAT UNIVERSITY идет прием документов!"
+
+#: .\templates\apply\index.html:24
+msgid "Diplomat University"
+msgstr ""
+
+#: .\templates\apply\index.html:24
+msgid ""
+"is an intellectual hub that prepares competitive professionals with modern "
+"knowledge and skills for the international arena!"
+msgstr "это интеллектуальный центр, готовящий конкурентоспособных специалистов с современными знаниями и навыками для международной арены!"
+
+#: .\templates\apply\index.html:27
+msgid ""
+"A team consisting of extraordinary and autonomous ambassadors, international "
+"political scientists, and foreign professors"
+msgstr "Команда из выдающихся и автономных послов, международных политологов и зарубежных преподавателей"
+
+#: .\templates\apply\index.html:28
+msgid "Educational programs meeting international standards"
+msgstr "Образовательные программы, соответствующие международным стандартам"
+
+#: .\templates\apply\index.html:29
+msgid "Creative and free academic environment"
+msgstr "Творческая и свободная академическая среда"
+
+#: .\templates\apply\index.html:30
+msgid "Career development center"
+msgstr "Центр развития карьеры"
+
+#: .\templates\apply\index.html:31
+msgid "Diplomas recognized both in Uzbekistan and abroad"
+msgstr "Дипломы, признанные в Узбекистане и за рубежом"
+
+#: .\templates\apply\index.html:34
+msgid "12 Bachelor's and 4 Master's degree"
+msgstr "12 программ бакалавриата и 4 программы магистратуры"
+
+#: .\templates\apply\index.html:34
+msgid "programs are waiting for you"
+msgstr "ждут вас"
+
+#: .\templates\apply\index.html:43 .\templates\apply\index1.html:94
+msgid ""
+"You can check your application status here. Type your application number "
+"below:"
+msgstr ""
+"Вы можете проверить статус вашего заявления здесь. Введите ваш номер "
+"заявления ниже:"
+
+#: .\templates\apply\index.html:44 .\templates\apply\index1.html:95
+msgid "Your application number"
+msgstr "Ваш номер заявки"
+
+#: .\templates\apply\index.html:60 .\templates\apply\index1.html:25
+msgid "Step 1"
+msgstr "Шаг 1"
+
+#: .\templates\apply\index.html:61 .\templates\apply\index1.html:26
+msgid "Filling out the form"
+msgstr "Заполнение заявления"
+
+#: .\templates\apply\index.html:70 .\templates\apply\index1.html:35
+msgid "Step 2"
+msgstr "Шаг 2"
+
+#: .\templates\apply\index.html:71 .\templates\apply\index1.html:36
+msgid "Uploading documents"
+msgstr "Загрузка документов"
+
+#: .\templates\apply\index.html:80 .\templates\apply\index1.html:45
+msgid "Step 3"
+msgstr "Шаг 3"
+
+#: .\templates\apply\index.html:81 .\templates\apply\index1.html:46
+msgid "Verifying and submitting"
+msgstr "Проверка и отправка"
+
+#: .\templates\apply\index.html:90 .\templates\apply\index1.html:55
+msgid "Step 4"
+msgstr "Шаг 4"
+
+#: .\templates\apply\index.html:91 .\templates\apply\index1.html:56
+msgid "Test"
+msgstr "Tестовые испытания"
+
+#: .\templates\apply\index.html:103 .\templates\apply\index1.html:68
+msgid "Degree"
+msgstr "Степень"
+
+#: .\templates\apply\index.html:113 .\templates\apply\index1.html:78
+msgid "Direction of education"
+msgstr "Направление образования"
+
+#: .\templates\apply\index.html:121 .\templates\apply\index1.html:86
+msgid "Form of study"
+msgstr "Форма обучения"
+
+#: .\templates\apply\index.html:133 .\templates\apply\index1.html:104
+msgid "Personal particulars:"
+msgstr "Личная информация:"
+
+#: .\templates\apply\index.html:136 .\templates\apply\index.html:137
+#: .\templates\apply\index1.html:107 .\templates\apply\index1.html:108
+msgid "Surname"
+msgstr "Фамилия"
+
+#: .\templates\apply\index.html:140 .\templates\apply\index.html:141
+#: .\templates\apply\index1.html:111 .\templates\apply\index1.html:112
+msgid "First name"
+msgstr "Имя"
+
+#: .\templates\apply\index.html:146 .\templates\apply\index.html:147
+#: .\templates\apply\index1.html:117 .\templates\apply\index1.html:118
+msgid "Middle name"
+msgstr "Отчество"
+
+#: .\templates\apply\index.html:150 .\templates\apply\index1.html:121
+msgid "Gender"
+msgstr "Пол"
+
+#: .\templates\apply\index.html:152 .\templates\apply\index1.html:123
+msgid "Select gender"
+msgstr "Выберите пол"
+
+#: .\templates\apply\index.html:160 .\templates\apply\index1.html:131
+msgid "Phone number"
+msgstr "Номер телефона"
+
+#: .\templates\apply\index.html:163 .\templates\apply\index1.html:134
+msgid "Enter the number in +998901234567 format"
+msgstr "Введите номер в формате +998901234567"
+
+#: .\templates\apply\index.html:166 .\templates\apply\index1.html:137
+msgid "Phone number (Telegram)"
+msgstr "Номер телефона (Telegram)"
+
+#: .\templates\apply\index.html:168 .\templates\apply\index1.html:139
+msgid "Telegram username or phone number"
+msgstr "Имя пользователя Telegram или номер телефона"
+
+#: .\templates\apply\index.html:171 .\templates\apply\index1.html:142
+msgid "Passport details:"
+msgstr "Паспортные данные:"
+
+#: .\templates\apply\index.html:174 .\templates\apply\index1.html:145
+msgid "Passport No.:"
+msgstr "Серия паспорта и номер"
+
+#: .\templates\apply\index.html:178 .\templates\apply\index1.html:149
+msgid "Enter the passport series in AA1234567 format"
+msgstr "Введите серию паспорта в формате AA1234567"
+
+#: .\templates\apply\index.html:182 .\templates\apply\index1.html:153
+msgid "JSHIR (PINFL)"
+msgstr "ДЖШИР (ПИНФЛ)"
+
+#: .\templates\apply\index.html:186 .\templates\apply\index1.html:157
+msgid "14-digit number"
+msgstr "14-значный номер"
+
+#: .\templates\apply\index.html:190 .\templates\apply\index1.html:161
+msgid "JSHIR must consist of 14 digits"
+msgstr "JSHIR должен состоять из 14 цифр"
+
+#: .\templates\apply\index.html:196 .\templates\apply\index.html:200
+#: .\templates\apply\index1.html:167 .\templates\apply\index1.html:171
+msgid "Address of permanent residence"
+msgstr "Адрес постоянного местa жительства"
+
+#: .\templates\apply\index.html:203 .\templates\apply\index1.html:174
+msgid "Region"
+msgstr "Регион"
+
+#: .\templates\apply\index.html:213 .\templates\apply\index.html:302
+#: .\templates\apply\index1.html:184 .\templates\apply\index1.html:273
+msgid "Next"
+msgstr "Следующий"
+
+#: .\templates\apply\index.html:217 .\templates\apply\index1.html:188
+msgid "I am attaching the following documents to this application:"
+msgstr "Прилагаю к настоящему заявлению нижеследующие документы:"
+
+#: .\templates\apply\index.html:218 .\templates\apply\index1.html:189
+msgid "Fields marked with * are required."
+msgstr "Поля, отмеченные *, обязательны для заполнения."
+
+#: .\templates\apply\index.html:223 .\templates\apply\index1.html:194
+msgid "Photo (3x4)"
+msgstr "Фотографию (3x4)"
+
+#: .\templates\apply\index.html:228 .\templates\apply\index.html:243
+#: .\templates\apply\index.html:259 .\templates\apply\index.html:274
+#: .\templates\apply\index.html:294 .\templates\apply\index1.html:199
+#: .\templates\apply\index1.html:214 .\templates\apply\index1.html:230
+#: .\templates\apply\index1.html:245 .\templates\apply\index1.html:265
+msgid "Requirements"
+msgstr "Требования"
+
+#: .\templates\apply\index.html:229 .\templates\apply\index1.html:200
+msgid "3x4, on a white background – jpeg, png format"
+msgstr "3х4 (на белом фоне) – формат jpeg, jpg, png"
+
+#: .\templates\apply\index.html:230 .\templates\apply\index.html:245
+#: .\templates\apply\index.html:261 .\templates\apply\index.html:276
+#: .\templates\apply\index.html:296 .\templates\apply\index1.html:201
+#: .\templates\apply\index1.html:216 .\templates\apply\index1.html:232
+#: .\templates\apply\index1.html:247 .\templates\apply\index1.html:267
+msgid "The maximum file size is up to 3 MB"
+msgstr "Максимальный размер файла – до 3 MБ"
+
+#: .\templates\apply\index.html:238 .\templates\apply\index1.html:209
+msgid "Passport copy"
+msgstr "Копию паспорта"
+
+#: .\templates\apply\index.html:244 .\templates\apply\index1.html:215
+msgid "Passport copy including the residence registration – jpeg/pdf format."
+msgstr "Копию паспорта вместе с пропиской - Формат jpeg/pdf."
+
+#: .\templates\apply\index.html:253 .\templates\apply\index1.html:224
+msgid "Diploma"
+msgstr "Аттестат или диплом"
+
+#: .\templates\apply\index.html:260 .\templates\apply\index1.html:231
+msgid ""
+"The copy of the document of secondary or secondary specialized education (or "
+"a certificate confirming graduation in the current year)"
+msgstr ""
+"Копию документа о среднем или средне-специальном образовании (или справку, "
+"подтверждающую окончание учебы в текущем году)"
+
+#: .\templates\apply\index.html:269 .\templates\apply\index1.html:240
+msgid "Additional documents"
+msgstr "Дополнительные документы"
+
+#: .\templates\apply\index.html:275 .\templates\apply\index1.html:246
+msgid "Certificates (IELTS, various competitions etc.)"
+msgstr "Сертификаты (IELTS, различные олимпиады и т.д.)"
+
+#: .\templates\apply\index.html:284 .\templates\apply\index1.html:255
+msgid ""
+"Applicants 'documents with scores of at least 56.7 and above are accepted "
+"from the entrance exams."
+msgstr ""
+"Принимаются документы абитуриентов, набравших на вступительных экзаменах не "
+"менее 56,7 и выше."
+
+#: .\templates\apply\index.html:285 .\templates\apply\index1.html:256
+msgid ""
+"Only in the 2022-2023 academic year and 2023-2024 academic year will the "
+"results of exams passed to state Higher Education Institutions be recognized."
+msgstr ""
+"Признаются только результаты экзаменов, сданных в государственные высшие "
+"учебные заведения в 2022-2023 учебном году и 2023-2024 учебном году."
+
+#: .\templates\apply\index.html:286 .\templates\apply\index.html:288
+#: .\templates\apply\index1.html:257 .\templates\apply\index1.html:259
+msgid "Your score"
+msgstr "Ваш набранный балл"
+
+#: .\templates\apply\index.html:289 .\templates\apply\index1.html:260
+msgid "DTM account"
+msgstr "учетная запись DTM"
+
+#: .\templates\apply\index.html:295 .\templates\apply\index1.html:266
+msgid ""
+"Applicant permission (QR code required to be loaded to be clearly visible)"
+msgstr ""
+"Допуск абитуриента (требуется загрузить так, чтобы QR-код был четко виден)"
+
+#: .\templates\apply\index.html:306 .\templates\apply\index1.html:277
+msgid "Verify and Submit"
+msgstr "Проверить и отправить"
+
+#: .\templates\apply\index.html:308 .\templates\apply\index1.html:279
+msgid ""
+"I take responsibility for the accuracy of the data in my application and "
+"confirm the information signed by me."
+msgstr ""
+"Беру на себя ответственность за достоверность данных в моем заявлении и "
+"подтверждаю подписанную мной информацию."
+
+#: .\templates\apply\index.html:309 .\templates\apply\index1.html:280
+msgid ""
+"I will enroll in the DIPLOMAT UNIVERSITY (hereinafter referred to as the "
+"University) on the direction/course specified in this application."
+msgstr ""
+"Буду поступать в DIPLOMAT UNIVERSITY (далее по тексту - Университет) на "
+"направление/курс, указанных в данном заявлении."
+
+#: .\templates\apply\index.html:310 .\templates\apply\index1.html:281
+msgid "Informed about the cost of studying at the University."
+msgstr "Информирован о стоимости обучения в Университете."
+
+#: .\templates\apply\index.html:311 .\templates\apply\index1.html:282
+msgid "I undertake to comply with the internal rules of the University."
+msgstr "Обязуюсь соблюдать внутренние правила Университета."
+
+#: .\templates\apply\index.html:312 .\templates\apply\index1.html:283
+msgid ""
+"I undertake to respect the administration and the scholars of the University."
+msgstr ""
+"Обязуюсь уважительно относится к администрации и профессорско-"
+"преподавательскому составу Университета."
+
+#: .\templates\apply\index.html:313 .\templates\apply\index1.html:284
+msgid ""
+"I agree that violation of the rules of the University or disrespect for the "
+"administration, as well as for the scholars of the University may cause "
+"rejection in the execution of my application or termination of the training "
+"contract."
+msgstr ""
+"Согласен с тем, что нарушение правил Университета или неуважение к "
+"администрации, а также к профессорско-преподавательскому составу "
+"Университета может стать причиной отклонения в исполнении моего заявления "
+"или расторжения контракта по обучению."
+
+#: .\templates\apply\index.html:314 .\templates\apply\index1.html:285
+msgid ""
+"I will take the opportunity to register only once in the University system."
+msgstr ""
+"Воспользуюсь возможностью зарегистрироваться только один раз в системе "
+"Университета."
+
+#: .\templates\apply\index.html:315 .\templates\apply\index1.html:286
+msgid ""
+"I agree and take note that the provision of incorrect information in the "
+"application or a falsified document will be the reason for the rejection of "
+"my application."
+msgstr ""
+"Соглашаюсь и принимаю к сведению, что предоставление неверной информации в "
+"заявлении или фальсифицированного документа явится причиной к отклонению "
+"моего заявления."
+
+#: .\templates\apply\index.html:316 .\templates\apply\index1.html:287
+msgid ""
+"I agree and confirm the possibility of my expulsion from the number of "
+"University students if during the verification of my documents false data / "
+"falsified information is revealed."
+msgstr ""
+"Соглашаюсь и подтверждаю возможность своего отчисления из числа студентов "
+"Университета, если в ходе проверки моих документов будут выявлены "
+"недостоверные данные/фальсифицированная информация."
+
+#: .\templates\apply\index.html:317 .\templates\apply\index1.html:288
+msgid ""
+"In the above-mentioned case, I confirm and agree that the University will "
+"not refund the contract amount paid by me in full, on account of material "
+"compensation."
+msgstr ""
+"В вышеупомянутом случае, подтверждаю и соглашаюсь о невозврате Университетом "
+"оплаченной мной суммы контракта в полном объеме, в счет возмещения "
+"материальной компенсации."
+
+#: .\templates\apply\index.html:319 .\templates\apply\index1.html:290
+msgid "Confirm"
+msgstr "ПОДТВЕРЖДАЮ"
+
+#: .\templates\apply\index.html:325 .\templates\apply\index1.html:296
+msgid "Submit"
+msgstr "Отправить"
+
+#: .\templates\apply\index.html:331 .\templates\apply\index1.html:302
+msgid "Your application has been successfully submitted!"
+msgstr "Ваша заявка успешно отправлена!"
+
+#: .\templates\apply\index.html:332 .\templates\apply\index1.html:303
+msgid "Your application number:"
+msgstr "Номер вашей заявки:"
+
+#: .\templates\apply\index.html:333 .\templates\apply\index1.html:304
+msgid ""
+"Please keep this number in mind to check your application status in the "
+"future."
+msgstr ""
+"Пожалуйста, запомните этот номер, чтобы в будущем проверить статус вашего "
+"заявления."
+
+#: .\templates\apply\index.html:336 .\templates\apply\index1.html:307
+msgid "Save application number"
+msgstr "Сохранить номер заявки"
+
+#: .\templates\apply\index.html:339 .\templates\apply\index1.html:310
+msgid "We will contact you soon."
+msgstr "Мы свяжемся с вами в ближайшее время."
+
+#: .\templates\apply\index.html:352 .\templates\apply\index1.html:323
+msgid "What is JSHIR (PINFL)?"
+msgstr "Что такое JSHIR (PINFL)?"
+
+#: .\templates\apply\index.html:357 .\templates\apply\index1.html:328
+msgid "Sample JSHIR"
+msgstr "Образец JSHIR"
+
+#~ msgid "Please confirm the terms."
+#~ msgstr "Пожалуйста, подтвердите условия."
