@@ -103,22 +103,16 @@ msgid "Internal server error: {}"
 msgstr "Внутренняя ошибка сервера: {}"
 
 #: .\apply\views.py:115
-#, fuzzy
-#| msgid "Application submitted!"
 msgid "Application number is required"
-msgstr "Заявка отправлена!"
+msgstr "Требуется номер заявки"
 
 #: .\apply\views.py:129
-#, fuzzy
-#| msgid "Application not found!"
 msgid "Application not found with this number"
-msgstr "Заявление не найдено!"
+msgstr "Заявление с этим номером не найдено"
 
 #: .\apply\views.py:135
-#, fuzzy
-#| msgid "An error occurred."
 msgid "An error occurred: {}"
-msgstr "Произошла ошибка."
+msgstr "Произошла ошибка: {}"
 
 #: .\apply\views.py:150
 msgid "Full-time education"
@@ -217,10 +211,8 @@ msgid "Application not found!"
 msgstr "Заявление не найдено!"
 
 #: .\templates\apply\base.html:379
-#, fuzzy
-#| msgid "Your application number:"
 msgid "Your application number to Diplomat University:"
-msgstr "Номер вашей заявки:"
+msgstr "Номер вашего заявления в Дипломатический университет:"
 
 #: .\templates\apply\base.html:433
 msgid "Please confirm the application."
@@ -239,10 +231,8 @@ msgid "An unexpected error occurred while submitting the application."
 msgstr "При подаче заявки произошла непредвиденная ошибка."
 
 #: .\templates\apply\base.html:486
-#, fuzzy
-#| msgid "Your application number"
 msgid "Application number"
-msgstr "Ваш номер заявки"
+msgstr "Номер заявки"
 
 #: .\templates\apply\base.html:505
 msgid "Status"

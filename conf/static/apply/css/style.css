@@ -65,7 +65,7 @@ header {
     background-color: var(--primary-blue);
     color: white;
     padding: 10px 0;
-    font-size: 14px;
+    font-size: 18px;
 }
 .header-content {
     display: flex;
@@ -275,7 +275,7 @@ select:invalid {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .footer-content a {

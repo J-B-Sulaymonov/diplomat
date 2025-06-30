@@ -1,0 +1,560 @@
+{% extends "apply/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+
+<style>
+.test-body {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+.question-panel {
+    flex: 3;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.question-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+.timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.question-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.option {
+    display: block;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.option:hover {
+    background-color: #f5f5f5;
+}
+.option input[type="radio"] {
+    margin-right: 12px;
+    /* Custom radio button styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+.option input[type="radio"]:checked {
+    border-color: #007bff;
+    background-color: #007bff;
+}
+.option input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.option input[type="radio"]:checked + span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+
+.navigation-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.btn-secondary {
+    background-color: #e9ecef;
+    color: #333;
+}
+.btn-secondary:hover {
+    background-color: #d6d8db;
+}
+.btn-secondary:disabled, .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Sidebar styles */
+.subjects {
+    display: flex;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.subject-tab {
+    flex: 1;
+    padding: 12px;
+    background-color: #fff;
+    color: #007bff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.subject-tab.active {
+    background-color: #007bff;
+    color: white;
+}
+.subject-tab:not(.active):hover {
+    background-color: #e6f2ff;
+}
+
+.test-numbers {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+.test-numbers h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+.points-info {
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.number-btn {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+.number-btn:hover:not(.answered):not(.current-question) {
+    background-color: #f0f0f0;
+}
+.number-btn.answered {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+.number-btn.current-question {
+    background-color: #007bff; /* Rasmdagi kabi ko'k rang */
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Joriy savolni ajratib ko'rsatish */
+}
+.btn-finish {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.btn-finish:hover {
+    background-color: #218838;
+}
+    .number-btn.answered {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+    font-weight: bold;
+}
+</style>
+<div class="main-header">
+    <div class="my-container">
+        <img src="https://apply.diplomat.university/_nuxt/img/headerLogo2.0a6ac49.svg" alt="Diplomat University" class="logo">
+    </div>
+</div>
+
+<div class="hero-section">
+    <div class="my-container">
+        <h1>{% trans "Application form" %}</h1>
+    </div>
+</div>
+{% if msg %}
+<div style="max-width: 1000px; margin: 70px auto; padding: 30px; font-size:30px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 10px; color: #856404; ">
+    <h3 style="font-size:40px">Diqqat!</h3>
+    <p>{{ msg }}</p>
+</div>
+{% else %}
+<div class="page-content-wrapper">
+    <main class="container">
+        <div class="form-container">
+            <div class="test-body">
+
+                <!-- Question Panel -->
+                <div class="question-panel">
+                    <div class="question-header">
+                        <h2 id="current-question-number">Question 1</h2>
+                        <div class="timer">
+                            <span id="time">01:00:00</span>
+                        </div>
+                    </div>
+
+                    <form id="quiz-form" method="post">
+                        {% csrf_token %}
+                        <div class="question-contents">
+                            <!-- Subject One -->
+                            <div class="question-content" data-subject-id="{{ application.direction_of_education.science_is_one.id }}">
+                                {% for question in science_is_one %}
+                                <div class="question-item"
+                                     data-question-index="{{ forloop.counter0 }}"
+                                     data-question-id="{{ question.question_id }}"
+                                     data-subject-id="{{ application.direction_of_education.science_is_one.id }}"
+                                     style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                                    <p class="question-text">{{ question.question }}</p>
+                                    <div class="options">
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="A"><span>A) {{ question.A }}</span></label>
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="B"><span>B) {{ question.B }}</span></label>
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="C"><span>C) {{ question.C }}</span></label>
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="D"><span>D) {{ question.D }}</span></label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Subject Two -->
+                            <div class="question-content" data-subject-id="{{ application.direction_of_education.science_two.id }}" style="display: none;">
+                                {% for question in science_two %}
+                                <div class="question-item"
+                                     data-question-index="{{ forloop.counter0 }}"
+                                     data-question-id="{{ question.question_id }}"
+                                     data-subject-id="{{ application.direction_of_education.science_two.id }}"
+                                     style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                                    <p class="question-text">{{ question.question }}</p>
+                                    <div class="options">
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="A"><span>A) {{ question.A }}</span></label>
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="B"><span>B) {{ question.B }}</span></label>
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="C"><span>C) {{ question.C }}</span></label>
+                                        <label class="option"><input type="radio" name="answer-{{ question.question_id }}" value="D"><span>D) {{ question.D }}</span></label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="navigation-buttons">
+                        <button type="button" class="btn btn-secondary" id="prev-question">Back</button>
+                        <button type="button" class="btn btn-primary" id="next-question">Next</button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="subjects">
+                        <button type="button" class="subject-tab active" data-subject-id="{{ application.direction_of_education.science_is_one.id }}">{{ application.direction_of_education.science_is_one.name }}</button>
+                        <button type="button" class="subject-tab" data-subject-id="{{ application.direction_of_education.science_two.id }}">{{ application.direction_of_education.science_two.name }}</button>
+                    </div>
+
+                    <div class="test-numbers">
+                        <h3>Test question numbers</h3>
+
+                        <div class="number-grid" data-subject-id="{{ application.direction_of_education.science_is_one.id }}">
+                            {% for question in science_is_one %}
+                            <button type="button" class="number-btn" data-question-index="{{ forloop.counter0 }}">{{ forloop.counter }}</button>
+                            {% endfor %}
+                        </div>
+
+                        <div class="number-grid" data-subject-id="{{ application.direction_of_education.science_two.id }}" style="display: none;">
+                            {% for question in science_two %}
+                            <button type="button" class="number-btn" data-question-index="{{ forloop.counter0 }}">{{ forloop.counter }}</button>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-finish" id="finish-test-btn">Finish</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+{% endif %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    let currentSubjectId = document.querySelector(".subject-tab.active").dataset.subjectId;
+    let currentQuestionIndex = 0;
+    const userAnswers = {};
+
+    const quizForm = document.getElementById("quiz-form");
+    const questionHeader = document.getElementById("current-question-number");
+    const prevBtn = document.getElementById("prev-question");
+    const nextBtn = document.getElementById("next-question");
+    const subjectTabs = document.querySelectorAll(".subject-tab");
+    const applicationNumber = "{{ application.application_number }}";
+    const scienceOneId = "{{ application.direction_of_education.science_is_one.id }}";
+    const scienceTwoId = "{{ application.direction_of_education.science_two.id }}";
+
+    // ==== TIMER SETUP ====
+    const TIMER_KEY = `timer_${applicationNumber}`;
+    const DURATION = 3600;
+    let remainingSeconds = parseInt(localStorage.getItem(TIMER_KEY)) || DURATION;
+
+    const timerElement = document.getElementById("time");
+    function formatTime(s) {
+        const h = String(Math.floor(s / 3600)).padStart(2, '0');
+        const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+        const sec = String(s % 60).padStart(2, '0');
+        return `${h}:${m}:${sec}`;
+    }
+    function startTimer() {
+        timerElement.textContent = formatTime(remainingSeconds);
+        const interval = setInterval(() => {
+            remainingSeconds--;
+            if (remainingSeconds <= 0) {
+                clearInterval(interval);
+                localStorage.removeItem(TIMER_KEY);
+                submitTest();
+            } else {
+                localStorage.setItem(TIMER_KEY, remainingSeconds);
+                timerElement.textContent = formatTime(remainingSeconds);
+            }
+        }, 1000);
+    }
+
+    // ==== QUESTION LOGIC ====
+    function getActiveElements() {
+        const activeContent = document.querySelector(`.question-content[data-subject-id="${currentSubjectId}"]`);
+        const activeQuestions = activeContent.querySelectorAll(".question-item");
+        const activeGrid = document.querySelector(`.number-grid[data-subject-id="${currentSubjectId}"]`);
+        const activeButtons = activeGrid.querySelectorAll(".number-btn");
+        return { activeQuestions, activeButtons };
+    }
+
+    function showQuestion(index) {
+        const { activeQuestions, activeButtons } = getActiveElements();
+        activeQuestions.forEach((item, i) => {
+            item.style.display = i === index ? "block" : "none";
+        });
+        activeButtons.forEach(btn => btn.classList.remove("current-question"));
+        if (activeButtons[index]) activeButtons[index].classList.add("current-question");
+
+        questionHeader.textContent = `Question ${index + 1}`;
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === activeQuestions.length - 1;
+
+        restoreAnswers();
+    }
+
+    function restoreAnswers() {
+        document.querySelectorAll(".question-item").forEach(item => {
+            const qid = item.dataset.questionId;
+            if (userAnswers[qid]) {
+                const input = item.querySelector(`input[value="${userAnswers[qid]}"]`);
+                if (input) input.checked = true;
+            }
+        });
+        markAnsweredButtons();
+    }
+
+    function markAnsweredButtons() {
+        document.querySelectorAll(".question-item").forEach(item => {
+            const qid = item.dataset.questionId;
+            const subjectId = item.dataset.subjectId;
+            const questionIndex = item.dataset.questionIndex;
+
+            const btn = document.querySelector(`.number-grid[data-subject-id="${subjectId}"] .number-btn[data-question-index="${questionIndex}"]`);
+            if (btn) {
+                if (userAnswers[qid]) {
+                    btn.classList.add("answered");
+                } else {
+                    btn.classList.remove("answered");
+                }
+            }
+        });
+    }
+
+    // ==== EVENTS ====
+    subjectTabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            subjectTabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            currentSubjectId = tab.dataset.subjectId;
+            currentQuestionIndex = 0;
+
+            document.querySelectorAll(".question-content").forEach(q => {
+                q.style.display = q.dataset.subjectId === currentSubjectId ? "block" : "none";
+            });
+            document.querySelectorAll(".number-grid").forEach(g => {
+                g.style.display = g.dataset.subjectId === currentSubjectId ? "grid" : "none";
+            });
+            showQuestion(currentQuestionIndex);
+        });
+    });
+
+    prevBtn.addEventListener("click", () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        }
+    });
+
+    nextBtn.addEventListener("click", () => {
+        const { activeQuestions } = getActiveElements();
+        if (currentQuestionIndex < activeQuestions.length - 1) {
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        }
+    });
+
+    document.querySelectorAll(".number-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const index = parseInt(btn.dataset.questionIndex);
+            if (!isNaN(index)) {
+                currentQuestionIndex = index;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+    });
+
+    document.querySelectorAll(".option input[type='radio']").forEach(input => {
+        input.addEventListener("change", () => {
+            const item = input.closest(".question-item");
+            const qid = item.dataset.questionId;
+            const subjectId = item.dataset.subjectId;
+            const questionIndex = item.dataset.questionIndex;
+            userAnswers[qid] = input.value;
+
+            const btn = document.querySelector(`.number-grid[data-subject-id="${subjectId}"] .number-btn[data-question-index="${questionIndex}"]`);
+            if (btn) btn.classList.add("answered");
+        });
+    });
+
+    document.getElementById("finish-test-btn").addEventListener("click", () => {
+        submitTest();
+    });
+
+    // ==== SEND TEST RESULT ====
+    function submitTest() {
+    const resultOne = [];
+    const resultTwo = [];
+
+    // Fan 1 uchun
+    document.querySelectorAll(`.question-content[data-subject-id="${scienceOneId}"] .question-item`).forEach(item => {
+        const qid = parseInt(item.dataset.questionId);
+        const checked = item.querySelector("input[type='radio']:checked");
+        resultOne.push({
+            question_id: qid,
+            user_answer: checked ? checked.value : null
+        });
+    });
+
+    // Fan 2 uchun
+    document.querySelectorAll(`.question-content[data-subject-id="${scienceTwoId}"] .question-item`).forEach(item => {
+        const qid = parseInt(item.dataset.questionId);
+        const checked = item.querySelector("input[type='radio']:checked");
+        resultTwo.push({
+            question_id: qid,
+            user_answer: checked ? checked.value : null
+        });
+    });
+
+    // Natijalarni yuborish
+    fetch("{% url 'save_test_results' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({
+            application_number: applicationNumber,
+            science_is_one_json: resultOne,
+            science_two_json: resultTwo
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            localStorage.removeItem(TIMER_KEY);
+            alert(`✅ Test yakunlandi!\nFan 1: ${data.fan1_score} ball\nFan 2: ${data.fan2_score} ball`);
+        } else {
+            alert("Xatolik: " + data.message);
+        }
+    })
+    .catch(err => {
+        alert("Server bilan bog‘lanishda xatolik: " + err);
+    });
+}
+
+
+    showQuestion(currentQuestionIndex);
+    startTimer();
+});
+</script>
+
+
+
+
+{% endblock content %}

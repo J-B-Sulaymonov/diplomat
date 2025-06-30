@@ -264,8 +264,14 @@ class ApplicationForm(models.Model):
     additional_documents = models.FileField(upload_to=FileUploadPath('additional'), blank=True, null=True,
                                             verbose_name="Qo'shimcha hujjatlar")
     additional_documents_status=models.BooleanField(default=False, verbose_name="Qo'shimcha hujjatlar holati")
+
     science_is_one=models.BooleanField(default=False,verbose_name="Birinchi fan")
     science_two=models.BooleanField(default=False, verbose_name="Ikkinchi fan")
+
+    science_is_one_json = models.JSONField(default=dict, blank=True, null=True, verbose_name="Birinchi fan savollari")
+    science_two_json = models.JSONField(default=dict, blank=True, null=True, verbose_name="Ikkinchi fan savollari")
+    science_is_one_user = models.JSONField(default=dict, blank=True, null=True, verbose_name="Birinchi fan Natijalar")
+    science_two_user= models.JSONField(default=dict, blank=True, null=True, verbose_name="Ikkinchi fan Natijalar")
 
     dtm_file = models.FileField(upload_to=FileUploadPath('dtm_files'), blank=True, null=True,
                                 verbose_name="DTM qaydnomasi (mavjud bo'lsa)")
@@ -313,3 +319,5 @@ class ApplicationForm(models.Model):
             self.dtm_status = False
 
         super().save(*args, **kwargs)
+
+

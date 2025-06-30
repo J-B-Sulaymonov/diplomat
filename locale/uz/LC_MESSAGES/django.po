@@ -101,22 +101,16 @@ msgid "Internal server error: {}"
 msgstr "Serverdagi ichki xatolik: {}"
 
 #: .\apply\views.py:115
-#, fuzzy
-#| msgid "Application submitted!"
 msgid "Application number is required"
-msgstr "Ariza topshirildi!"
+msgstr "Ariza raqami kriting"
 
 #: .\apply\views.py:129
-#, fuzzy
-#| msgid "Application not found!"
 msgid "Application not found with this number"
-msgstr "Ariza topiolmadi"
+msgstr "Bunday ariza raqami topilmadi"
 
 #: .\apply\views.py:135
-#, fuzzy
-#| msgid "An error occurred."
 msgid "An error occurred: {}"
-msgstr "Xatolik yuz berdi."
+msgstr "Xatolik yuz berdi: {}"
 
 #: .\apply\views.py:150
 msgid "Full-time education"
@@ -215,8 +209,6 @@ msgid "Application not found!"
 msgstr "Ariza topiolmadi"
 
 #: .\templates\apply\base.html:379
-#, fuzzy
-#| msgid "Your application number:"
 msgid "Your application number to Diplomat University:"
 msgstr "Ariza raqamingiz:"
 
@@ -237,10 +229,8 @@ msgid "An unexpected error occurred while submitting the application."
 msgstr "Arizani yuborishda kutilmagan xatolik yuz berdi."
 
 #: .\templates\apply\base.html:486
-#, fuzzy
-#| msgid "Your application number"
 msgid "Application number"
-msgstr "Ariza raqamingiz"
+msgstr "Sizning ariza raqamingiz"
 
 #: .\templates\apply\base.html:505
 msgid "Status"
