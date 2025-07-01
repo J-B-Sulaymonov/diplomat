@@ -181,8 +181,19 @@ class ApplicationFormAdmin(admin.ModelAdmin):
     #         'fields': ('created_at', 'updated_at')
     #     })
     # )
-
-    readonly_fields = ('created_at', 'updated_at')
+    exclude = (
+        'science_is_one_json',
+        'science_two_json',
+        'science_is_one_user',
+        'science_two_user',
+    )
+    readonly_fields = (
+        'science_is_one_score',
+        'science_two_score',
+        'rating',
+        'created_at',
+        'updated_at',
+    )
 
     def get_full_name(self, obj):
         return f"{obj.surname} {obj.first_name} {obj.middle_name or ''}".strip()

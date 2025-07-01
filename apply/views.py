@@ -1,4 +1,6 @@
 import json
+import uuid
+
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.db import transaction
@@ -12,7 +14,10 @@ from django.core.exceptions import ObjectDoesNotExist
 import logging
 import random
 
+
 logger = logging.getLogger(__name__)
+
+
 def set_language(request, language):
     http_referer = request.META.get("HTTP_REFERER")
     if not http_referer:
@@ -30,6 +35,7 @@ def set_language(request, language):
 
 @require_http_methods(["GET", "POST"])
 def application_form_view(request):
+
     if request.method == 'GET':
         try:
             degrees = Dagree.objects.filter(status=True)
@@ -47,10 +53,11 @@ def application_form_view(request):
     elif request.method == 'POST':
         data = request.POST
         files = request.FILES
+        print(1)
 
         try:
             # Validation
-            required_fields = ['degree', 'education_direction', 'study_form', 'surname',
+            required_fields = ['degree', 'education_direction', 'study_form','language', 'surname',
                                'first_name', 'gender', 'phone', 'passport', 'jshir',
                                'address_of_permanent_residence', 'region']
 
@@ -91,6 +98,7 @@ def application_form_view(request):
                     'dagree': dagree_obj,
                     'direction_of_education': direction_obj,
                     'form_of_education': data['study_form'],
+                    'language': data['language'],
                     'surname': data['surname'],
                     'first_name': data['first_name'],
                     'middle_name': data.get('middle_name', ''),
@@ -112,7 +120,8 @@ def application_form_view(request):
                 }
 
                 new_application = ApplicationForm.objects.create(**app_data)
-                app_number = f"DU-{new_application.id:06d}"
+                short_uuid = str(uuid.uuid4()).split('-')[0]
+                app_number = f"DU-{new_application.id:06d}-{short_uuid}"
                 new_application.application_number = app_number
                 new_application.save()
 
@@ -134,6 +143,8 @@ def application_form_view(request):
                 'success': False,
                 'errors': {'server_error': _('Internal server error occurred.')}
             }, status=500)
+
+
 @require_POST
 def check_application_status(request):
     application_number = request.POST.get('application_number', '').strip()
@@ -150,6 +161,8 @@ def check_application_status(request):
             'success': True,
             'status': application.status,
             'status_display': application.get_status_display(),
+            'test_status': application.test_status,
+            'application_number': application.application_number,
         })
 
     except ObjectDoesNotExist:
@@ -212,81 +225,132 @@ def check_uniqueness(request):
                         status=405)
 
 
+def serialize_questions(qs):
+    serialized = []
+    for q in qs:
+        options = {'A': q.A, 'B': q.B, 'C': q.C, 'D': q.D}
+        correct_text = options[q.correct_answer]
+        shuffled = list(options.items())
+        random.shuffle(shuffled)
+
+        shuffled_options = {}
+        new_correct = None
+        for new_key, (old_key, text) in zip(['A', 'B', 'C', 'D'], shuffled):
+            shuffled_options[new_key] = text
+            if text == correct_text:
+                new_correct = new_key
+
+        serialized.append({
+            "question_id": q.id,
+            "question": q.question,
+            "A": shuffled_options['A'],
+            "B": shuffled_options['B'],
+            "C": shuffled_options['C'],
+            "D": shuffled_options['D'],
+            "correct_answer": new_correct
+        })
+    return serialized
+
+
+def assign_test_questions(science_field, field_name, languages):
+    if science_field.id == 4:
+        questions = list(Question.objects.filter(sciences_id=science_field.id).filter(language='uzbek'))
+    else:
+        questions = list(Question.objects.filter(sciences_id=science_field.id).filter(language=languages))
+
+
+    random.shuffle(questions)
+    selected = questions[:20]
+
+    if len(selected) < 20:
+        print(f"{field_name} bo‘yicha test savollari yetarli emas.")
+        return None, "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+    return serialize_questions(selected), None
+
+
 def test(request, ap_number):
+
     application = get_object_or_404(ApplicationForm, application_number=ap_number)
-    if application.test_status==False:
-        context = {
-            'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin, Diplomat University qo'llab quvvatlash xizmatiga murojaat qiling telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88  ",
-        }
-        return render(request, 'apply/test.html', context)
 
-    science_is_one_qs = list(Question.objects.filter(sciences_id=application.direction_of_education.science_is_one.id))
-    science_two_qs = list(Question.objects.filter(sciences_id=application.direction_of_education.science_two.id))
+    if not application.test_status:
+        print("Test topshirishga ruxsat berilmagan")
+        return render(request, 'apply/test.html', {
+            'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+        })
 
-    random.shuffle(science_is_one_qs)
-    random.shuffle(science_two_qs)
+    if application.dtm_status:
+        print("DTM statusi = True")
+        return render(request, 'apply/test.html', {
+            'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+        })
 
-    science_is_one_qs = science_is_one_qs[:20]
-    science_two_qs = science_two_qs[:20]
+    error_msg = None
 
-    if not application.science_is_one_json and not application.science_two_json:
-        if len(science_is_one_qs) == 20 and len(science_two_qs) == 20:
+    if application.additional_documents_status:
 
-            def serialize_questions(qs):
-                serialized = []
-                for q in qs:
-                    # Asl variantlar: harf -> matn
-                    original_options = {
-                        'A': q.A,
-                        'B': q.B,
-                        'C': q.C,
-                        'D': q.D,
-                    }
+        if application.science_is_one:
 
-                    # To'g'ri javobni matni
-                    correct_text = original_options[q.correct_answer]
+            if not application.science_two_json:
+                print(application.direction_of_education.science_two.id)
+                print(application.direction_of_education.science_two.name)
+                data, error_msg = assign_test_questions(application.direction_of_education.science_two, "Fan-2", application.language)
 
-                    # (harf, matn) juftliklarini ro'yxatga olib, aralashtiramiz
-                    options_list = list(original_options.items())
-                    random.shuffle(options_list)
+                if error_msg:
+                    return render(request, 'apply/test.html', {'msg': error_msg})
+                application.science_two_json = data
 
-                    # Yangi harflarni tayinlab, yangi dict yaratamiz
-                    shuffled_options = {}
-                    new_correct_answer = None
-                    for new_letter, (old_letter, text) in zip(['A', 'B', 'C', 'D'], options_list):
-                        shuffled_options[new_letter] = text
-                        if text == correct_text:
-                            new_correct_answer = new_letter  # Matn orqali aniqlanadi
+        elif application.science_two:
 
-                    serialized.append({
-                        "question_id": q.id,
-                        "question": q.question,
-                        "A": shuffled_options['A'],
-                        "B": shuffled_options['B'],
-                        "C": shuffled_options['C'],
-                        "D": shuffled_options['D'],
-                        "correct_answer": new_correct_answer
-                    })
+            if not application.science_is_one_json:
+                print(application.direction_of_education.science_is_one.id)
+                print(application.direction_of_education.science_is_one.name)
+                data, error_msg = assign_test_questions(application.direction_of_education.science_is_one, "Fan-1", application.language)
 
-                return serialized
-
-            application.science_is_one_json = serialize_questions(science_is_one_qs)
-            application.science_two_json = serialize_questions(science_two_qs)
-            application.test_status=False
-            application.save()
+                if error_msg:
+                    return render(request, 'apply/test.html', {'msg': error_msg})
+                application.science_is_one_json = data
         else:
-            context = {
-                'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin, Diplomat university qo'llab quvvatlash xizmatiga murojaat qiling telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88.",
-            }
-            return render(request, 'apply/test.html', context)
+            print("Fan sertifikati haqida ma'lumot topilmadi. Iltimos, qo‘llab-quvvatlash xizmatiga murojaat qiling.")
+            return render(request, 'apply/test.html', {
+                'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+            })
+    else:
+
+        if not application.science_is_one_json and not application.science_two_json:
+
+            data1, error1 = assign_test_questions(application.direction_of_education.science_is_one, "Fan-1", application.language)
+            print(application.direction_of_education.science_is_one.id)
+            print(application.direction_of_education.science_is_one.name)
+            data2, error2 = assign_test_questions(application.direction_of_education.science_two, "Fan-2", application.language)
+            print(application.direction_of_education.science_two.id)
+            print(application.direction_of_education.science_two.name)
+
+            if error1 or error2:
+                return render(request, 'apply/test.html', {'msg': error1 or error2})
+
+            application.science_is_one_json = data1
+            application.science_two_json = data2
+
+    application.test_status = False
+
+    application.save()
 
     context = {
         'application': application,
-        'science_is_one': application.science_is_one_json,
-        'science_two': application.science_two_json,
     }
 
+    if application.science_is_one_json and not application.science_is_one :
+        context['science_is_one'] = application.science_is_one_json
+        context['science_one_name'] = application.direction_of_education.science_is_one.name
+        context['science_one_id'] = application.direction_of_education.science_is_one.id
+
+    if application.science_two_json and not application.science_two:
+        context['science_two'] = application.science_two_json
+        context['science_two_name'] = application.direction_of_education.science_two.name
+        context['science_two_id'] = application.direction_of_education.science_two.id
+
     return render(request, 'apply/test.html', context)
+
 
 def save_test_results(request):
     if request.method == "POST":
@@ -302,30 +366,51 @@ def save_test_results(request):
             questions_one = application.science_is_one_json or []
             questions_two = application.science_two_json or []
 
-            # To'g'ri javoblarni tekshirish uchun yordamchi funksiya
-            def calculate_score(questions, user_answers):
+            def calculate_score(questions, user_answers, question_ball):
                 correct_count = 0
                 user_answer_map = {str(item['question_id']): item['user_answer'] for item in user_answers}
                 for q in questions:
                     qid = str(q['question_id'])
                     if qid in user_answer_map and q.get('correct_answer') == user_answer_map[qid]:
-                        correct_count += 1
+                        correct_count += question_ball
                 return correct_count
 
-            fan1_score = calculate_score(questions_one, user_answers_one)
-            fan2_score = calculate_score(questions_two, user_answers_two)
+            fan1_score = 0
+            fan2_score = 0
 
-            # Javoblarni saqlash
+            if application.additional_documents_status:
+                if application.science_is_one:
+                    fan1_score = 60
+                    fan2_score = calculate_score(questions_two, user_answers_two, 2)
+                elif application.science_two:
+                    fan1_score = calculate_score(questions_one, user_answers_one, 3)
+                    fan2_score = 40
+            else:
+                fan1_score = calculate_score(questions_one, user_answers_one, 3)
+                fan2_score = calculate_score(questions_two, user_answers_two, 2)
+
             application.science_is_one_user = user_answers_one
             application.science_two_user = user_answers_two
+            application.science_is_one_score = fan1_score
+            application.science_two_score = fan2_score
+            application.rating = fan1_score+fan2_score
+
+            if fan1_score+fan2_score>30:
+                application.status = 'approved'
+            else:
+                application.status = 'rejected'
+
             application.save()
 
             return JsonResponse({
                 "status": "success",
                 "message": "Natijalar saqlandi",
                 "fan1_score": fan1_score,
-                "fan2_score": fan2_score
+                "fan2_score": fan2_score,
+                "rating": fan1_score + fan2_score,
+
             })
+
 
         except ApplicationForm.DoesNotExist:
             return JsonResponse({"status": "error", "message": "Ariza topilmadi"}, status=404)

@@ -7,6 +7,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils.deconstruct import deconstructible
+import uuid
+import random
+import string
 
 
 class Sciences(models.Model):
@@ -38,8 +41,8 @@ class Question(models.Model):
         ('D', 'D'),
     ]
     LANGUAGE_CHOICES = [
-        ('uz', _('uz')),
-        ('ru', _('ru')),
+        ('uzbek', _("Uzbek")),
+        ('russian', _('Russian')),
     ]
 
     sciences = models.ForeignKey(Sciences, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Fan")
@@ -221,6 +224,21 @@ class ApplicationForm(models.Model):
         regex=r'^[A-Z]{2}\d{7}$',
         message="Pasport seriyasini 'AA1234567' formatida kiriting."
     )
+    application_number = models.CharField(max_length=100, verbose_name="Ariza raqami")
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending',
+        verbose_name="Ariza holati"
+    )
+    test_status = models.BooleanField(default=True)
+    surname = models.CharField(max_length=100, verbose_name="Familya")
+    first_name = models.CharField(max_length=100, verbose_name="Ism")
+    middle_name = models.CharField(max_length=100, verbose_name="Sharif", blank=True)
+    phone = models.CharField(max_length=20, validators=[phone_validator], verbose_name="Telefon raqami")
+    telegram = models.CharField(max_length=100, verbose_name="Telegram username yoki telefon nomer", blank=True, )
+
     dagree = models.ForeignKey(
         Dagree,
         on_delete=models.SET_NULL,
@@ -238,85 +256,76 @@ class ApplicationForm(models.Model):
         default=1
     )
     form_of_education = models.CharField(max_length=10, choices=FORM_OF_EDUCATION, verbose_name="Ta'lim shakli")
-    application_number = models.CharField(max_length=100, verbose_name="Ariza raqami")
-
-    surname = models.CharField(max_length=100, verbose_name="Familya")
-    first_name = models.CharField(max_length=100, verbose_name="Ism")
-    middle_name = models.CharField(max_length=100, verbose_name="Sharif", blank=True)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="Jinsi")
-    phone = models.CharField(max_length=20, validators=[phone_validator], verbose_name="Telefon raqami")
-    telegram = models.CharField(max_length=100, verbose_name="Telegram username yoki telefon nomer", blank=True, )
+    language = models.CharField(max_length=10, choices=LANGUAGE_CHOICES, verbose_name="Test tili")
 
     passport = models.CharField(max_length=9, unique=True, validators=[passport_validator],
                                 verbose_name="Pasport seriyasi va raqami")
     jshir = models.CharField(max_length=14, verbose_name="JSHIR", unique=True, )
-    address_of_permanent_residence = models.CharField(max_length=500, verbose_name="Doimiy yashash manzili")
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="Jinsi")
 
-    region = models.ForeignKey(
-        Region,
-        on_delete=models.PROTECT,
-        verbose_name="Viloyat"
-    )
+    address_of_permanent_residence = models.CharField(max_length=500, verbose_name="Doimiy yashash manzili")
+    region = models.ForeignKey(Region, on_delete=models.PROTECT, verbose_name="Viloyat" )
 
     photo = models.ImageField(upload_to=FileUploadPath('photos'), verbose_name="Surat (3x4)")
     passport_copy = models.FileField(upload_to=FileUploadPath('passports'), verbose_name="Pasport nusxasi")
     diploma = models.FileField(upload_to=FileUploadPath('diplomas'), verbose_name="Diplom/Shaxodatnoma (ilovasi bilan)")
+
+    dtm_file = models.FileField(upload_to=FileUploadPath('dtm_files'), blank=True, null=True,
+                                verbose_name="DTM qaydnomasi (mavjud bo'lsa)")
+    dtm_ball = models.FloatField(blank=True, null=True, verbose_name="DTM bali (mavjud bo'lsa)")
+
+    dtm_status = models.BooleanField(default=False, verbose_name="DTM qaydnomasi holati")
+
     additional_documents = models.FileField(upload_to=FileUploadPath('additional'), blank=True, null=True,
                                             verbose_name="Qo'shimcha hujjatlar")
     additional_documents_status=models.BooleanField(default=False, verbose_name="Qo'shimcha hujjatlar holati")
 
     science_is_one=models.BooleanField(default=False,verbose_name="Birinchi fan")
     science_two=models.BooleanField(default=False, verbose_name="Ikkinchi fan")
+    science_is_one_score = models.CharField(max_length=14, verbose_name="Birinchi fan bahosi", blank=True, null=True)
+    science_two_score = models.CharField(max_length=14, verbose_name="Ikkinchi fan bahosi", blank=True, null=True)
+    rating = models.CharField(max_length=14, verbose_name="Umumiy bahosi", blank=True, null=True)
 
     science_is_one_json = models.JSONField(default=dict, blank=True, null=True, verbose_name="Birinchi fan savollari")
     science_two_json = models.JSONField(default=dict, blank=True, null=True, verbose_name="Ikkinchi fan savollari")
-    science_is_one_user = models.JSONField(default=dict, blank=True, null=True, verbose_name="Birinchi fan Natijalar")
-    science_two_user= models.JSONField(default=dict, blank=True, null=True, verbose_name="Ikkinchi fan Natijalar")
+    science_is_one_user = models.JSONField(default=dict, blank=True, null=True, verbose_name="Birinchi fan Foydalanuvchi javoblari")
+    science_two_user= models.JSONField(default=dict, blank=True, null=True, verbose_name="Ikkinchi fan Foydalanuvchi javoblari")
 
-    dtm_file = models.FileField(upload_to=FileUploadPath('dtm_files'), blank=True, null=True,
-                                verbose_name="DTM qaydnomasi (mavjud bo'lsa)")
 
-    dtm_ball = models.FloatField(blank=True, null=True, verbose_name="DTM bali (mavjud bo'lsa)")
-    dtm_status=models.BooleanField(default=False,verbose_name="DTM qaydnomasi holati")
 
-    language = models.CharField(max_length=10, choices=LANGUAGE_CHOICES, verbose_name="Ta'lim tili")
-
-    bilateral_contract = models.FileField(upload_to=FileUploadPath('contracts'),
-                                          verbose_name="Ikki tomonlama shartnoma", blank=True, )
-    tripartite_contract = models.FileField(upload_to=FileUploadPath('contracts'),
-                                           verbose_name="Uch tomonlama shartnoma (to'lov-kontrakt)", blank=True, )
-
-    status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default='pending',
-        verbose_name="Ariza holati"
-    )
-    test_status=models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
         return f"{self.surname} {self.first_name}"
 
+
     class Meta:
         verbose_name = "Ariza"
         verbose_name_plural = "Arizalar"
         ordering = ['-created_at']
 
+
+    def generate_uuid(self):
+        return ''.join(random.choices(string.ascii_uppercase + string.digits, k=16))
+
+
     def save(self, *args, **kwargs):
-        if self.additional_documents:
-            self.additional_documents_status = True
-            self.test_status = False
+        if self._state.adding:
 
-        else:
-            self.additional_documents_status = False
+            if self.additional_documents:
+                self.additional_documents_status = True
+                self.status = 'pending'
+                self.test_status = False
+            else:
+                self.additional_documents_status = False
 
-        if self.dtm_file or self.dtm_ball is not None:
-            self.dtm_status = True
-            self.test_status = False
-        else:
-            self.dtm_status = False
+            if self.dtm_file or self.dtm_ball is not None:
+                self.dtm_status = True
+                self.status = 'pending'
+                self.test_status = False
+            else:
+                self.dtm_status = False
 
         super().save(*args, **kwargs)
 

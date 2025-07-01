@@ -98,7 +98,7 @@
                 <form id="applicationForm" class="application-form" novalidate action="{% url 'application_form' %}">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="degree">{% trans "Degree" %}<span class="text-danger">*</span></label>
                                 <select id="degree" name="degree" required>
@@ -108,7 +108,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            </div> <div class="col-md-4">
+                            </div> <div class="col-md-6">
                             <div class="form-group">
                                 <label for="education-direction">{% trans "Direction of education" %}<span
                                         class="text-danger">*</span></label>
@@ -116,14 +116,28 @@
                                     <option value="">---------</option>
                                 </select>
                             </div>
-</div> <div class="col-md-4">
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="study-form">{% trans "Form of study" %}<span class="text-danger">*</span></label>
                                 <select id="study-form" name="study_form" disabled required>
                                     <option value="">---------</option>
+
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="language">{% trans "Language of the test" %}<span class="text-danger">*</span></label>
+                                <select id="language" name="language"  required>
+                                    <option value="" disabled selected>---------</option>
+                                    <option value="uzbek">{% trans "Uzbek" %}</option>
+                                    <option value="russian">{% trans "Russian" %}</option>
+
+                                </select>
+                            </div>
+                        </div>
+
 
                     </div>
                     <hr style="height:2px; background:black">
@@ -149,7 +163,7 @@
                             <div class="form-group">
                                 <label for="gender">{% trans "Gender" %}<span class="text-danger">*</span></label>
                                 <select id="gender" name="gender" required>
-                                    <option value="" disabled selected>{% trans "Select gender" %}</option>
+                                    <option value="" disabled selected>---------</option>
                                     <option value="male">{% trans "Male" %}</option>
                                     <option value="female">{% trans "Female" %}</option>
                                 </select>
@@ -409,11 +423,10 @@ $(document).ready(function() {
                         <p>{% trans "Your application number:" %} <strong id="application-number"></strong>.</p>
                         <p>{% trans "Please keep this number in mind to check your application status in the future." %}</p>
 
-                        <button type="button" id="save-app-number-btn" class="next-btn" style="margin-top: 20px;">
-                            <i class="fas fa-download"></i> {% trans "Save application number" %}
-                        </button>
-
                         <p style="margin-top: 20px;">{% trans "We will contact you soon." %}</p>
+                        <div id="test-link-placeholder"></div>
+
+
                     </div>
 
                 </form>
@@ -723,6 +736,22 @@ $(document).ready(function() {
         } else {
             $(`#step-${step}`).show();
         }
+        if (step === 4) {
+        const appNumber = $('#application-number').text().trim();
+        if (appNumber) {
+            const fileContent = `{% trans "Your application number to Diplomat University:" %} ${appNumber}`;
+            const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${appNumber}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    }
 
         updateStepIndicator(step);
         currentStep = step;
@@ -840,6 +869,7 @@ $(document).ready(function() {
                 success: function(result) {
                     if (result.success) {
                         $('#application-number').text(result.application_number);
+                        $('#test-link-placeholder').html(`<a href="/du-test/${result.application_number}/" class="next-btn">{% trans "START TEST" %}</a>`);
                         goToStep(4);
                         localStorage.removeItem('applicationFormData');
                     } else {
@@ -887,19 +917,33 @@ $(document).ready(function() {
                 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
             },
             success: function(response) {
-                if (response.success) {
-                    const statusClass = 'status-' + response.status.toLowerCase();
-                    const statusDisplay = response.status_display;
+    if (response.success) {
+        const statusClass = 'status-' + response.status.toLowerCase();
+        const statusDisplay = response.status_display;
 
-                    $('#statusResult').html(`
-                        <div class="${statusClass}">
-                            <strong>{% trans "Status" %}:</strong> ${statusDisplay}
-                        </div>
-                    `);
-                } else {
-                    $('#statusResult').html(`<div class="alert alert-danger">${response.error}</div>`);
-                }
-            },
+        let resultHtml = `
+            <div class="${statusClass}">
+                <strong>{% trans "Status" %}:</strong> ${statusDisplay}
+            </div>
+        `;
+
+        // Faqat test_status true bo‘lsa va application_number mavjud bo‘lsa
+        if ((response.test_status === true || response.test_status === 'true') && response.application_number) {
+            resultHtml += `
+                <div style="margin-top: 10px;">
+                    <a href="/du-test/${response.application_number}/" class="btn btn-success">
+                        {% trans "START TEST" %}
+                    </a>
+                </div>
+            `;
+        }
+
+        $('#statusResult').html(resultHtml);
+    } else {
+        $('#statusResult').html(`<div class="alert alert-danger">${response.error}</div>`);
+    }
+},
+
             error: function(xhr) {
                 let errorMsg = "{% trans 'Server error. Please try again later.' %}";
                 if (xhr.responseJSON && xhr.responseJSON.error) {
