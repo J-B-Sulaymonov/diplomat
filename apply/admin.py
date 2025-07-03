@@ -1,6 +1,8 @@
 from modeltranslation.admin import TranslationAdmin
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
+
+from .forms import QuestionImportForm
 from .resources import QuestionResource
 from apply.models import Sciences, Question, Dagree, DirectionOfEducation, Region, ApplicationForm
 
@@ -110,13 +112,23 @@ class RegionAdmin(TranslationAdmin):
         }
 
 
-class QuestionAdmin(ImportExportModelAdmin):
+# class QuestionAdmin(ImportExportModelAdmin):
+class QuestionAdmin(admin.ModelAdmin):
+
+    change_list_template = "admin/apply/question/change_list.html"
     resource_class = QuestionResource
 
     list_display = ('question', 'A', 'B', 'C', 'D', 'correct_answer', 'sciences', 'status', 'language',)
     list_editable = ('status',)
     list_filter = ('sciences', 'language', 'status',)
     search_fields = ('question', 'sciences__name')
+
+    class Media:
+        js = [
+            'apply/js/mathjax-config.js',
+            'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        ]
+
 
 
 @admin.register(ApplicationForm)
@@ -181,12 +193,12 @@ class ApplicationFormAdmin(admin.ModelAdmin):
     #         'fields': ('created_at', 'updated_at')
     #     })
     # )
-    exclude = (
-        'science_is_one_json',
-        'science_two_json',
-        'science_is_one_user',
-        'science_two_user',
-    )
+    # exclude = (
+    #     'science_is_one_json',
+    #     'science_two_json',
+    #     'science_is_one_user',
+    #     'science_two_user',
+    # )
     readonly_fields = (
         'science_is_one_score',
         'science_two_score',

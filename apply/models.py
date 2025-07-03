@@ -282,9 +282,9 @@ class ApplicationForm(models.Model):
 
     science_is_one=models.BooleanField(default=False,verbose_name="Birinchi fan")
     science_two=models.BooleanField(default=False, verbose_name="Ikkinchi fan")
-    science_is_one_score = models.CharField(max_length=14, verbose_name="Birinchi fan bahosi", blank=True, null=True)
-    science_two_score = models.CharField(max_length=14, verbose_name="Ikkinchi fan bahosi", blank=True, null=True)
-    rating = models.CharField(max_length=14, verbose_name="Umumiy bahosi", blank=True, null=True)
+    science_is_one_score = models.IntegerField(max_length=2,default=0, verbose_name="Birinchi fan bahosi", blank=True, null=True)
+    science_two_score = models.IntegerField(max_length=2, default=0, verbose_name="Ikkinchi fan bahosi", blank=True, null=True)
+    rating = models.CharField(max_length=3,default=0, verbose_name="Umumiy bahosi", blank=True, null=True)
 
     science_is_one_json = models.JSONField(default=dict, blank=True, null=True, verbose_name="Birinchi fan savollari")
     science_two_json = models.JSONField(default=dict, blank=True, null=True, verbose_name="Ikkinchi fan savollari")

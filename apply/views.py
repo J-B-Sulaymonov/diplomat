@@ -53,7 +53,6 @@ def application_form_view(request):
     elif request.method == 'POST':
         data = request.POST
         files = request.FILES
-        print(1)
 
         try:
             # Validation
@@ -212,7 +211,7 @@ def check_uniqueness(request):
                 errors['passport'] = _('This passport number is already registered.')
 
             if jshir_value and ApplicationForm.objects.filter(jshir=jshir_value).exists():
-                errors['jshir'] = _('This JSHIR (PINFL) is already registered.')
+                errors['jshir'] = _('This JSHSHIR (PINFL) is already registered.')
 
             if errors:
                 return JsonResponse({'is_unique': False, 'errors': errors})
@@ -264,25 +263,47 @@ def assign_test_questions(science_field, field_name, languages):
 
     if len(selected) < 20:
         print(f"{field_name} bo‘yicha test savollari yetarli emas.")
-        return None, "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+        return None, _("Technical malfunction. Contact the Diplomat University support service. Phone: ️☎️ +998 88 126 88 88, ️☎️ +998 88 124 88 88")
     return serialize_questions(selected), None
 
 
 def test(request, ap_number):
 
     application = get_object_or_404(ApplicationForm, application_number=ap_number)
-
-    if not application.test_status:
-        print("Test topshirishga ruxsat berilmagan")
+    if application.status=="approved":
         return render(request, 'apply/test.html', {
-            'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+            'msg': _("You have been recommended for admission. We will contact you shortly. If you have any questions for us, please contact our support. Phone: ️ ☎️ +998 88 126 88 88, ️☎️ +998 88 124 88 88")
         })
+    elif application.status=="rejected":
+        return render(request, 'apply/test.html', {
+            'msg': _("Unfortunately, you weren't recommended as a student. If you have any questions for us, please contact our support. Phone: ️☎️ +998 88 126 88 88, ️☎️ +998 88 124 88 88")
+        })
+
+    if application.additional_documents_status:
+
+        if application.science_is_one or application.science_two:
+            print("Fan tanllangan")
+        else:
+            print("SERTIFICAT statusi = True")
+            return render(request, 'apply/test.html', {
+                'msg': _("Your application is under review. We will contact you shortly. If you have any questions for us, please contact our support. Phone: ️☎️ +998 88 126 88 88, ️☎️ +998 88 124 88 88")
+            })
+
 
     if application.dtm_status:
         print("DTM statusi = True")
         return render(request, 'apply/test.html', {
-            'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+            'msg': _("Your application is under review. We will contact you shortly. If you have any questions for us, please contact our support. Phone: ️☎️ +998 88 126 88 88, ️☎️ +998 88 124 88 88")
         })
+
+    if not application.test_status:
+
+        return render(request, 'apply/test.html', {
+                'msg': _("Permission to take the test is closed. Contact the Diplomat University support service. Phone: ️☎️ +998 88 126 88 88, ️☎️ +998 88 124 88 88")
+            })
+
+
+
 
     error_msg = None
 
@@ -291,8 +312,6 @@ def test(request, ap_number):
         if application.science_is_one:
 
             if not application.science_two_json:
-                print(application.direction_of_education.science_two.id)
-                print(application.direction_of_education.science_two.name)
                 data, error_msg = assign_test_questions(application.direction_of_education.science_two, "Fan-2", application.language)
 
                 if error_msg:
@@ -302,8 +321,6 @@ def test(request, ap_number):
         elif application.science_two:
 
             if not application.science_is_one_json:
-                print(application.direction_of_education.science_is_one.id)
-                print(application.direction_of_education.science_is_one.name)
                 data, error_msg = assign_test_questions(application.direction_of_education.science_is_one, "Fan-1", application.language)
 
                 if error_msg:
@@ -312,18 +329,14 @@ def test(request, ap_number):
         else:
             print("Fan sertifikati haqida ma'lumot topilmadi. Iltimos, qo‘llab-quvvatlash xizmatiga murojaat qiling.")
             return render(request, 'apply/test.html', {
-                'msg': "Sizga test topshirish uchun ruxsat berilmagan bo'lishi mumkin. Diplomat University qo'llab-quvvatlash xizmatiga murojaat qiling. Telefon: ☎️ +998 88 126 88 88, ☎️ +998 88 124 88 88"
+                'msg': _("Technical malfunction. Contact the Diplomat University support service. Phone: ️☎️ +998 88 126 88 88, ️☎️ +998 88 124 88 88")
             })
     else:
 
         if not application.science_is_one_json and not application.science_two_json:
 
             data1, error1 = assign_test_questions(application.direction_of_education.science_is_one, "Fan-1", application.language)
-            print(application.direction_of_education.science_is_one.id)
-            print(application.direction_of_education.science_is_one.name)
             data2, error2 = assign_test_questions(application.direction_of_education.science_two, "Fan-2", application.language)
-            print(application.direction_of_education.science_two.id)
-            print(application.direction_of_education.science_two.name)
 
             if error1 or error2:
                 return render(request, 'apply/test.html', {'msg': error1 or error2})
@@ -395,7 +408,7 @@ def save_test_results(request):
             application.science_two_score = fan2_score
             application.rating = fan1_score+fan2_score
 
-            if fan1_score+fan2_score>30:
+            if application.rating>=30:
                 application.status = 'approved'
             else:
                 application.status = 'rejected'
@@ -404,7 +417,7 @@ def save_test_results(request):
 
             return JsonResponse({
                 "status": "success",
-                "message": "Natijalar saqlandi",
+                "message": _("Results saved"),
                 "fan1_score": fan1_score,
                 "fan2_score": fan2_score,
                 "rating": fan1_score + fan2_score,
@@ -413,11 +426,11 @@ def save_test_results(request):
 
 
         except ApplicationForm.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Ariza topilmadi"}, status=404)
+            return JsonResponse({"status": "error", "message": _("Application not found")}, status=404)
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
 
-    return JsonResponse({"status": "error", "message": "POST methodi kerak"}, status=405)
+    return JsonResponse({"status": "error", "message": _("Need the POST method")}, status=405)
 
 
 

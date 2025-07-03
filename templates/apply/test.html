@@ -451,7 +451,7 @@ function showQuestion(index) {
     activeButtons.forEach(btn => btn.classList.remove("current-question"));
     if (activeButtons[index]) activeButtons[index].classList.add("current-question");
 
-    questionHeader.textContent = `Question ${index + 1}`;
+    questionHeader.textContent = `{% trans "Question" %} ${index + 1}`;
     prevBtn.disabled = index === 0;
     nextBtn.disabled = index === activeQuestions.length - 1;
 
@@ -585,6 +585,32 @@ function submitTest() {
         if (data.status === "success") {
             localStorage.removeItem(TIMER_KEY);
 
+            const txtContent = `
+Diplomat University - Test Results
+
+Application Number: ${applicationNumber}
+
+Subject 1: ${data.fan1_score} ball
+Subject 2: ${data.fan2_score} ball
+General Score: ${data.rating} ball
+
+Date: ${new Date().toLocaleString()}
+
+Contact:
+📞 +998 88 126 88 88
+📞 +998 88 124 88 88
+`;
+
+            // Avtomatik txt fayl yaratish va saqlash
+            const blob = new Blob([txtContent], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `TestResults_${applicationNumber}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Modal ko‘rsatish
             const messageHtml = `
                 <p><strong>{% trans "Subject 1:" %}</strong> ${data.fan1_score} {% trans "ball" %}</p>
                 <p><strong>{% trans "Subject 2:" %}</strong> ${data.fan2_score} {% trans "ball" %}</p>
@@ -602,6 +628,7 @@ function submitTest() {
         showModal("{% trans "Error connecting to the server." %}", err.message || err);
     });
 }
+
 
 
 
@@ -643,4 +670,16 @@ document.addEventListener("keydown", function (e) {
 
 </script>
 
+<script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+		MathJax = {
+			tex: {
+				inlineMath: [['$', '$'],
+							['\\(', '\\)']]
+			},
+			svg: {
+				fontCache: 'global'
+			}
+		};
+	</script>
 {% endblock content %}

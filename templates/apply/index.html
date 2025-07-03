@@ -193,7 +193,7 @@
                                 <div class="invalid-feedback" id="passport-error"></div>
                             </div>
                             <div class="form-group">
-                                <label for="jshir">{% trans "JSHIR (PINFL)" %}<span class="text-danger">*</span>
+                                <label for="jshir">{% trans "JSHSHIR (PINFL)" %}<span class="text-danger">*</span>
                                     <i class="fas fa-info-circle info-icon" data-bs-toggle="modal"
                                        data-bs-target="#jshirModal"></i>
                                 </label>
@@ -201,7 +201,7 @@
                                        inputmode="numeric"
                                        pattern="[0-9]{14}"
                                        maxlength="14"
-                                       title="{% trans 'JSHIR must consist of 14 digits' %}" required>
+                                       title="{% trans 'JSHSHIR must consist of 14 digits' %}" required>
                                 <div class="invalid-feedback" id="jshir-error"></div>
                             </div>
                         </div>
@@ -439,12 +439,12 @@ $(document).ready(function() {
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="jshirModalLabel">{% trans "What is JSHIR (PINFL)?" %}</h5>
+                <h5 class="modal-title" id="jshirModalLabel">{% trans "What is JSHSHIR (PINFL)?" %}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 <img src="https://cisc.uz/uz/media/images/470186658_2527042054173012_8502034666669134116_n.jpg"
-                     class="img-fluid" alt="{% trans 'Sample JSHIR' %}">
+                     class="img-fluid" alt="{% trans 'Sample JSHSHIR' %}">
             </div>
         </div>
     </div>

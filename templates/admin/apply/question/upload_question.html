@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h2>Fayldan savol yuklash</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="file">Fayl:</label>
+    <input type="file" name="file" required><br><br>
+
+    <label for="science">Fan:</label>
+    <select name="science" required>
+        {% for science in sciences %}
+            <option value="{{ science.id }}">{{ science.name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="language">Test tili:</label>
+    <select name="language" required>
+        <option value="uzbek">O'zbek</option>
+        <option value="russian">Rus</option>
+    </select><br><br>
+
+    <button type="submit" class="default">Yuklash</button>
+</form>
+{% endblock %}

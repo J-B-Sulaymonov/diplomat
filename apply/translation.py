@@ -7,10 +7,6 @@ class DagreeTrans(TranslationOptions):
     fields = ('name',)
 
 
-# @register(Question)
-# class QuestionTrans(TranslationOptions):
-#     fields = ('question','A','B','C','D')
-
 @register(Sciences)
 class SciencesTrans(TranslationOptions):
     fields = ('name',)
@@ -23,8 +19,4 @@ class DirectionOfEducationTrans(TranslationOptions):
 class RegionTrans(TranslationOptions):
     fields = ('name',)
 
-# @register(ApplicationForm)
-# class ApplicationFormTrans(TranslationOptions):
-#     fields = ('name',)
-#
 
