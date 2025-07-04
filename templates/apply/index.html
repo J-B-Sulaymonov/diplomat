@@ -11,7 +11,7 @@
 </div>
 <div class="hero-section">
     <div class="my-container">
-        <h1>{% trans "Application form" %}</h1>
+        <h1><a href="/" style="color:white">{% trans "Application form" %}</a></h1>
     </div>
 </div>
 <div class="page-content-wrapper">
@@ -108,7 +108,8 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            </div> <div class="col-md-6">
+                            </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="education-direction">{% trans "Direction of education" %}<span
                                         class="text-danger">*</span></label>
@@ -459,16 +460,16 @@ $(document).ready(function() {
      * @param {string} degreeId - Selected degree ID
      */
     function loadDirections(degreeId) {
+    return new Promise(function(resolve, reject) {
         const $directionSelect = $('#education-direction');
         const $studyFormSelect = $('#study-form');
 
-        // Reset direction and study form selects
-        $directionSelect.html('<option value="">{% trans "Loading..." %}</option>').prop('disabled', true);
-        $studyFormSelect.html('<option value="">{% trans "Choose a direction first." %}</option>').prop('disabled', true);
+        $directionSelect.html('<option value="Loading...">').prop('disabled', true);
+        $studyFormSelect.html('<option value="">Choose direction first</option>').prop('disabled', true);
 
         if (!degreeId) {
-            $directionSelect.html('<option value="">{% trans "First select the level" %}</option>');
-            return;
+            $directionSelect.html('<option value="">Select degree first</option>');
+            return resolve(); // Empty, but still resolved
         }
 
         $.ajax({
@@ -481,25 +482,30 @@ $(document).ready(function() {
                     options += `<option value="${direction.id}">${direction.name}</option>`;
                 });
                 $directionSelect.html(options).prop('disabled', false);
+                resolve(); // important!
             },
             error: function(xhr, status, error) {
-                console.error('{% trans "Error loading training courses:" %}', error);
-                $directionSelect.html('<option value="">{% trans "An error occurred." %}</option>');
+                console.error('Error loading directions:', error);
+                $directionSelect.html('<option value="">An error occurred</option>');
+                reject(error);
             }
         });
-    }
+    });
+}
+
 
     /**
      * Load study forms based on selected direction
      * @param {string} directionId - Selected direction ID
      */
     function loadStudyForms(directionId) {
+    return new Promise(function(resolve, reject) {
         const $studyFormSelect = $('#study-form');
         $studyFormSelect.html('<option value="">{% trans "Loading..." %}</option>').prop('disabled', true);
 
         if (!directionId) {
             $studyFormSelect.html('<option value="">{% trans "Choose a direction first." %}</option>');
-            return;
+            return resolve(); // baribir resolve qilamiz, chunki hech narsa qilish kerak emas
         }
 
         $.ajax({
@@ -516,88 +522,126 @@ $(document).ready(function() {
                 } else {
                     $studyFormSelect.html('<option value="">{% trans "No form of education available" %}</option>').prop('disabled', true);
                 }
+                resolve(); // ✅ muvaffaqiyatli tugadi
             },
             error: function(xhr, status, error) {
                 console.error('{% trans "Error loading educational forms:" %}', error);
                 $studyFormSelect.html('<option value="">{% trans "An error occurred." %}</option>');
+                reject(error); // ❌ xatolik yuz berdi
             }
         });
-    }
+    });
+}
+
 
     function saveFormState() {
-        const formData = {};
+    const formData = {};
 
-        $('#applicationForm').find(':input').each(function() {
-            const $input = $(this);
-            if ($input.attr('name') && $input.attr('type') !== 'submit' && $input.attr('type') !== 'button') {
-                if ($input.attr('type') === 'file') {
-                    if ($input[0].files.length > 0) {
-                        formData[$input.attr('name')] = { filename: $input[0].files[0].name };
-                    }
-                } else if ($input.attr('type') === 'radio') {
-                    if ($input.is(':checked')) {
-                        formData[$input.attr('name')] = $input.val();
-                    }
-                } else {
+    $('#applicationForm').find(':input').each(function () {
+        const $input = $(this);
+        if ($input.attr('name') && $input.attr('type') !== 'submit' && $input.attr('type') !== 'button') {
+            if ($input.attr('type') === 'file') {
+                if ($input[0].files.length > 0) {
+                    formData[$input.attr('name')] = {
+                        filename: $input[0].files[0].name
+                    };
+                }
+            } else if ($input.attr('type') === 'radio') {
+                if ($input.is(':checked')) {
                     formData[$input.attr('name')] = $input.val();
                 }
+            } else if ($input.attr('type') === 'checkbox') {
+                formData[$input.attr('name')] = $input.is(':checked'); // ✅ BU YERDA
+            } else {
+                formData[$input.attr('name')] = $input.val();
             }
-        });
+        }
+    });
 
-        localStorage.setItem('applicationFormData', JSON.stringify(formData));
-    }
+    localStorage.setItem('applicationFormData', JSON.stringify(formData));
+}
+
 
     /**
      * Load saved form data from localStorage
      */
     async function loadFormState() {
-        const savedDataJSON = localStorage.getItem('applicationFormData');
-        if (!savedDataJSON) return;
+    const savedDataJSON = localStorage.getItem('applicationFormData');
+    if (!savedDataJSON) return;
 
-        const data = JSON.parse(savedDataJSON);
-        const $form = $('#applicationForm');
+    const data = JSON.parse(savedDataJSON);
+    const $form = $('#applicationForm');
 
-        // Fill regular fields
-        for (const name in data) {
-            const $element = $form.find(`[name="${name}"]`);
-            if ($element.length === 0) continue;
-
-            // Skip dependent fields for now
-            const dependentFields = ['degree', 'education_direction', 'study_form'];
-            if (dependentFields.includes(name)) continue;
-
-            if ($element.attr('type') === 'file') {
-                const filename = data[name]?.filename;
-                if (filename) {
-                    let $fileInfo = $element.siblings('.file-info');
-                    if ($fileInfo.length === 0) {
-                        $fileInfo = $('<span>', {
-                            class: 'file-info text-muted small d-block'
-                        }).insertAfter($element);
-                    }
-                    $fileInfo.html(`{% trans "Last selected file:" %} <strong>${filename}</strong>. <br>{% trans "For security reasons, you must reselect the file." %}`);
-                }
-            } else if ($element.attr('type') === 'radio') {
-                $element.filter(`[value="${data[name]}"]`).prop('checked', true);
-            } else {
-                $element.val(data[name]);
-            }
-        }
-
-        // Load dependent selects in correct sequence
-        if (data.degree) {
-            $form.find('[name="degree"]').val(data.degree);
-            await loadDirections(data.degree);
-        }
-        if (data.education_direction) {
-            $form.find('[name="education_direction"]').val(data.education_direction);
-            await loadStudyForms(data.education_direction);
-        }
-        if (data.study_form) {
-            $form.find('[name="study_form"]').val(data.study_form);
-        }
-        console.log('{% trans "The data was successfully reloaded." %}');
+    // 1. Degree birinchi yuklanadi
+    if (data.degree) {
+        $('#degree').val(data.degree);
+        await loadDirections(data.degree); // AJAX chaqiruv, directionlar kelsin
     }
+
+    // 2. Education Direction
+    if (data.education_direction) {
+        $('#education-direction').val(data.education_direction);
+        await loadStudyForms(data.education_direction); // AJAX chaqiruv, formalar kelsin
+    }
+
+    // 3. Study Form
+    if (data.study_form) {
+        $('#study-form').val(data.study_form);
+    }
+
+    // 4. Language
+    if (data.language) {
+        $('#language').val(data.language);
+    }
+
+    // 5. Checkboxlar
+    if (data.has_dtm === true) {
+        $('#has-dtm').prop('checked', true).trigger('change');
+    } else {
+        $('#has-dtm').prop('checked', false).trigger('change');
+    }
+
+    if (data.has_additional_docs === true) {
+        $('#has-additional-docs').prop('checked', true).trigger('change');
+    } else {
+        $('#has-additional-docs').prop('checked', false).trigger('change');
+    }
+
+    // 6. Boshqa barcha input, select va radioslar
+    for (const name in data) {
+        // yuqorida ishlov berilgan nomlarni o'tkazib yuboramiz
+        if (['degree', 'education_direction', 'study_form', 'language', 'has_dtm', 'has_additional_docs'].includes(name)) {
+            continue;
+        }
+
+        const $element = $form.find(`[name="${name}"]`);
+        if ($element.length === 0) continue;
+
+        const type = $element.attr('type');
+
+        if (type === 'file') {
+            const filename = data[name]?.filename;
+            if (filename) {
+                let $fileInfo = $element.siblings('.file-info');
+                if ($fileInfo.length === 0) {
+                    $fileInfo = $('<span>', {
+                        class: 'file-info text-muted small d-block'
+                    }).insertAfter($element);
+                }
+                $fileInfo.html(`{% trans "Last selected file:" %} <strong>${filename}</strong>. <br>{% trans "For security reasons, you must reselect the file." %}`);
+            }
+        } else if (type === 'radio') {
+            $element.filter(`[value="${data[name]}"]`).prop('checked', true);
+        } else {
+            $element.val(data[name]);
+        }
+    }
+
+    console.log('✅ Formadagi barcha maʼlumotlar localStorage’dan tiklandi.');
+}
+
+
+
 
     // ===================================================================================
     // VALIDATION HELPER FUNCTIONS
@@ -680,6 +724,24 @@ $(document).ready(function() {
         // Validate before proceeding to next step
         if (step > currentStep) {
             const $currentStepContainer = $(`#step-${currentStep}`);
+            // Qo'shimcha validatsiya: 1-stepda degree va boshqalar bo‘sh bo‘lmasligi
+if (currentStep === 1 && step === 2) {
+    const requiredFields = ['#degree', '#education-direction', '#study-form', '#language'];
+    let missing = false;
+
+    requiredFields.forEach(function(selector) {
+        const val = $(selector).val();
+        if (!val || val === '' || val === '---------') {
+            $(selector).addClass('is-invalid');
+            missing = true;
+        } else {
+            $(selector).removeClass('is-invalid');
+        }
+    });
+
+    if (missing) return; // Agar biri ham tanlanmagan bo‘lsa, keyingi qadamga o‘tmaydi
+}
+
             const $inputs = $currentStepContainer.find('input[required], select[required]');
 
             let isBrowserValid = true;
